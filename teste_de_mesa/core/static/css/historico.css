@@ -1,0 +1,32 @@
+.db-table-wrapper {
+    border-radius: 25px;
+    border: none;
+    resize: none;
+    margin: 50px;
+    width: 80%;
+    height: 350px;
+    padding: 50px;
+
+    font-size: 20px;
+    overflow: auto;
+    text-align: left;
+
+    box-shadow: #000f1b 0px 0px 40px;
+    background-color: #013a63;
+    color: #d7eff7;
+}
+
+.db-table tr > * {
+    padding: 5px;
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.db-table tr td a {
+    text-decoration: none;
+    color: #d7eff7;
+}
+
+.db-table tr td a:hover {
+    color: #000f1b;
+}

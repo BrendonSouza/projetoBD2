@@ -11,7 +11,7 @@ body {
     justify-items: center;
     text-align: center;
 
-    margin: 50px;
+    margin: 100px 25px;
 
     background-color: #011a2a;
     color: #d7eff7;
@@ -40,61 +40,6 @@ header p {
     text-shadow: #000f1b 0px 0px 24px;
 }
 
-/* code editor and results */
-#code-editor-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin: 50px;
-    width: 90%;
-}
-
-#text-areas-wrapper {
-    display: flex;
-    width: 80%;
-    height: 500px;
-}
-
-/* code editor */
-.code-editor {
-    border-radius: 25px;
-    border: none;
-    resize: none;
-    margin: 20px;
-    width: 80%;
-    height: 100%;
-    padding: 50px;
-
-    font-size: 16px;
-    tab-size: 4;
-    overflow: auto;
-    /* white-space: nowrap; */
-
-    box-shadow: #000f1b 0px 0px 40px;
-    background-color: #013a63;
-    color: #d7eff7;
-}
-
-.code-editor:focus {
-    outline: none;
-}
-
-/* table */
-
-.table-wrapper {
-    width: 80%;
-    overflow: auto;
-    text-align: left;
-}
-
-.test-table tr>* {
-    padding: 5px;
-    min-width: 150px;
-    max-width: 150px;
-    
-}
-
 /* button */
 .primary-button {
     width: 200px;
@@ -104,7 +49,7 @@ header p {
 
     font-size: 24px;
 
-    transition: 300ms;
+    transition: 250ms;
     box-shadow: #000f1b 0px 0px 40px;
     background-color: #012a4a;
     color: #d7eff7;
@@ -112,6 +57,24 @@ header p {
 
 .primary-button:hover {
     background-color: #013a63;
+}
+
+.secondary-button {
+    width: 100px;
+    height: 25px;
+    border-radius: 25px;
+    border: none;
+    
+    font-size: 18px;
+
+    transition: 250ms;
+    box-shadow: #000f1b 0px 0px 40px;
+    background-color: #2A6F97;
+    color: #d7eff7;
+}
+
+.secondary-button:hover {
+    background-color: #012a4a;
 }
 
 /* scrollbar */

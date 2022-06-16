@@ -1,0 +1,52 @@
+/* code editor and results */
+#code-editor-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 50px;
+    width: 90%;
+}
+
+#text-areas-wrapper {
+    display: flex;
+    width: 80%;
+    height: 400px;
+}
+
+/* code editor */
+.code-editor {
+    border-radius: 25px;
+    border: none;
+    resize: none;
+    margin: 20px;
+    width: 80%;
+    height: 100%;
+    padding: 50px;
+
+    font-size: 16px;
+    tab-size: 4;
+    overflow: auto;
+
+    box-shadow: #000f1b 0px 0px 40px;
+    background-color: #013a63;
+    color: #d7eff7;
+}
+
+.code-editor:focus {
+    outline: none;
+}
+
+/* table */
+
+.table-wrapper {
+    width: 80%;
+    overflow: auto;
+    text-align: left;
+}
+
+.test-table tr > * {
+    padding: 5px;
+    min-width: 150px;
+    max-width: 150px;
+}
