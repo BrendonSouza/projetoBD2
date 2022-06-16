@@ -1,0 +1,135 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+
+    margin: 50px;
+
+    background-color: #011a2a;
+    color: #d7eff7;
+}
+
+body::before {
+    z-index: -1;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../images/background.svg");
+    filter: brightness(25%) blur(2px);
+}
+
+/* header */
+header h1 {
+    font-size: 64px;
+    text-shadow: #000f1b 0px 0px 24px;
+}
+
+header p {
+    font-size: 18px;
+    text-shadow: #000f1b 0px 0px 24px;
+}
+
+/* code editor and results */
+#code-editor-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 50px;
+    width: 90%;
+}
+
+#text-areas-wrapper {
+    display: flex;
+    width: 80%;
+    height: 500px;
+}
+
+/* code editor */
+.code-editor {
+    border-radius: 25px;
+    border: none;
+    resize: none;
+    margin: 20px;
+    width: 80%;
+    height: 100%;
+    padding: 50px;
+
+    font-size: 16px;
+    tab-size: 4;
+    overflow: auto;
+    /* white-space: nowrap; */
+
+    box-shadow: #000f1b 0px 0px 40px;
+    background-color: #013a63;
+    color: #d7eff7;
+}
+
+.code-editor:focus {
+    outline: none;
+}
+
+/* table */
+
+.table-wrapper {
+    width: 80%;
+    overflow: auto;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.test-table tr>* {
+    padding: 5px;
+    min-width: 150px;
+    max-width: 150px;
+    flex-wrap: wrap;
+}
+
+/* button */
+.primary-button {
+    width: 200px;
+    height: 75px;
+    border-radius: 25px;
+    border: none;
+
+    font-size: 24px;
+
+    transition: 300ms;
+    box-shadow: #000f1b 0px 0px 40px;
+    background-color: #012a4a;
+    color: #d7eff7;
+}
+
+.primary-button:hover {
+    background-color: #013a63;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background: #000f1b;
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #012a4a;
+    border-radius: 12px;
+}
+
+::-webkit-scrollbar-corner {
+    background: #013a63;
+}
