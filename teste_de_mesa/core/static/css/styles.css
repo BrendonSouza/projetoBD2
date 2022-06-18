@@ -44,7 +44,7 @@ header p {
 .primary-button {
     width: 200px;
     height: 75px;
-    border-radius: 25px;
+    border-radius: 10px;
     border: none;
 
     font-size: 24px;
@@ -62,7 +62,7 @@ header p {
 .secondary-button {
     width: 100px;
     height: 25px;
-    border-radius: 25px;
+    border-radius: 10px;
     border: none;
     
     font-size: 18px;
@@ -84,12 +84,12 @@ header p {
 }
 ::-webkit-scrollbar-thumb {
     background: #000f1b;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
     background: #012a4a;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 ::-webkit-scrollbar-corner {

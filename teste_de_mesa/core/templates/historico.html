@@ -33,13 +33,13 @@
                     <td>{{ teste.data_teste_mesa }}</td>
                     <td>
                         <a
-                            href="{% url 'historico_dados' teste.fk_dados_teste_mesa.id %}"
+                            href="{% url 'historico_dados' teste.id %}"
                             ><button class="secondary-button">Ver</button></a
                         >
                     </td>
                     <td>
                         <a
-                            href="{% url 'historico_dados' teste.fk_caso_teste.id %}"
+                            href="{% url 'historico_casos_teste' teste.id %}"
                             ><button class="secondary-button">Ver</button></a
                         >
                     </td>

@@ -15,33 +15,23 @@
         {% include 'navbar.html' %}
 
         <header>
-            <h1>Dados do teste</h1>
-            <p>ID do teste de mesa: {{ pk }}</p>
+            <h1>Testes realizados</h1>
+            <p>Visualize o histórico de testes contido no banco de dados</p>
         </header>
 
         <div class="db-table-wrapper">
             <table class="db-table" type="text">
                 <tr>
                     <th>ID</th>
-                    <th>Linha</th>
-                    <th>Numero da equação</th>
-                    <th>Variavel O</th>
-                    <th>Dado Hexa O</th>
-                    <th>Variavel P</th>
-                    <th>Dado Hexa P</th>
+                    <th>Data</th>
                 </tr>
-                {% for dado in dados_testes_de_mesa %}
                 <tr>
-                    <td>{{ dado.id }}</td>
-                    <td>{{ dado.linha }}</td>
-                    <td>{{ dado.num_equacao }}</td>
-                    <td>{{ dado.variavel_o }}</td>
-                    <td>{{ dado.dado_hexa_o }}</td>
-                    <td>{{ dado.variavel_p }}</td>
-                    <td>{{ dado.dado_hexa_p }}</td>
+                    <td>{{ programa_p.id }}</td>
+                    <td>{{ programa_p.data_implementacao }}</td>
                 </tr>
-                {% endfor %}
             </table>
+            <h3>Código</h3>
+            <pre>{{ programa_p.codigo }}</pre>
         </div>
 
         <button class="primary-button" type="button" onclick="history.back()">

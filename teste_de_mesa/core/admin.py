@@ -2,29 +2,29 @@ from django.contrib import admin
 from .models import ProgramaO, ProgramaP, CasoTeste, DadosTesteMesa, TesteMesa, ValoresTeste
 
 
+class TesteMesaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'data_teste_mesa')
+
+
 class ProgramaOAdmin(admin.ModelAdmin):
-    list_display = ('data_implementacao', 'codigo')
+    list_display = ('id', 'data_implementacao', 'codigo')
 
 
 class ProgramaPAdmin(admin.ModelAdmin):
-    list_display = ('data_implementacao', 'codigo')
+    list_display = ('id', 'data_implementacao', 'codigo')
 
 
 class DadosTesteMesaAdmin(admin.ModelAdmin):
-    list_display = ('linha', 'num_equacao', 'variavel_o',
-                    'dado_hexa_o', 'variavel_p', 'dado_hexa_p')
+    list_display = ('id', 'linha', 'num_equacao', 'variavel_o',
+                    'dado_hexa_o', 'variavel_p', 'dado_hexa_p', 'fk_teste_mesa')
 
 
 class CasoTesteAdmin(admin.ModelAdmin):
-    list_display = ('fk_programa_o', 'fk_programa_p')
-
-
-class TesteMesaAdmin(admin.ModelAdmin):
-    list_display = ('data_teste_mesa', 'fk_caso_teste', 'fk_dados_teste_mesa')
+    list_display = ('id', 'fk_teste_mesa', 'fk_programa_o', 'fk_programa_p')
 
 
 class ValoresTesteAdmin(admin.ModelAdmin):
-    list_display = ('parametro', 'valor', 'fk_caso_teste')
+    list_display = ('id', 'parametro', 'valor', 'fk_caso_teste')
 
 
 admin.site.register(ProgramaO, ProgramaOAdmin)
