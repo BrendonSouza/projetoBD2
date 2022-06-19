@@ -1,0 +1,32 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#navbar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: #000f1b 0px 0px 4px;
+    background-color: #011a2a;
+}
+
+#navbar ul {
+    list-style: none;
+    width: 100%;
+    float: left;
+}
+
+#navbar ul a {
+    text-decoration: none;
+    color: #d7eff7;
+    float: left;
+    padding: 25px 50px;
+    transition: 250ms;
+}
+
+#navbar ul a:hover {
+    background-color: #013A63;
+}

@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Teste de Mesa - Histórico</title>
+
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/historico.css' %}" />
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+
+        <header>
+            <h1>Testes realizados</h1>
+            <p>Visualize o histórico de testes contido no banco de dados</p>
+        </header>
+
+        <div class="db-table-wrapper">
+            <table class="db-table" type="text">
+                <tr>
+                    <th>ID</th>
+                    <th>Parâmetro</th>
+                    <th>Valor</th>
+                </tr>
+                {% for valor in valores_teste %}
+                <tr>
+                    <td>{{ valor.id }}</td>
+                    <td>{{ valor.parametro }}</td>
+                    <td>{{ valor.valor }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <button class="primary-button" type="button" onclick="history.back()">
+            Voltar
+        </button>
+    </body>
+</html>

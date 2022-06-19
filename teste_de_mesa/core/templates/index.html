@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Teste de Mesa - Início</title>
+
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    </head>
+    <body>
+        {% include 'navbar.html' %}
+
+        <header>
+            <h1>Teste de Mesa</h1>
+            <p>Execute testes de mesa do seu código em Python</p>
+        </header>
+
+        <form id="code-editor-wrapper">
+            <button class="primary-button">Executar Teste</button>
+            <div id="text-areas-wrapper">
+                <textarea
+                    class="code-editor"
+                    type="text"
+                    spellcheck="false"
+                ></textarea>
+
+                <div class="code-editor table-wrapper">
+                    <table class="test-table" type="text">
+                        <tr>
+                            <th>It 1</th>
+                            <th>It 2</th>
+                            <th>It 3</th>
+                            <th>It 4</th>
+                            <th>It 5</th>
+                        </tr>
+                        <tr>
+                            <td>Teste de valores maiores</td>
+                            <td>Teste</td>
+                            <td>Teste</td>
+                            <td>Teste de valores</td>
+                            <td>Teste de valores</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+
+        <script src="{% static 'js/scripts.js' %}"></script>
+    </body>
+</html>
