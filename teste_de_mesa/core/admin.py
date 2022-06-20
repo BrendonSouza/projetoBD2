@@ -3,7 +3,7 @@ from .models import ProgramaO, ProgramaP, CasoTeste, DadosTesteMesa, TesteMesa, 
 
 
 class TesteMesaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'data_teste_mesa')
+    list_display = ('id', 'fk_caso_teste', 'data_teste_mesa')
 
 
 class ProgramaOAdmin(admin.ModelAdmin):
@@ -20,7 +20,7 @@ class DadosTesteMesaAdmin(admin.ModelAdmin):
 
 
 class CasoTesteAdmin(admin.ModelAdmin):
-    list_display = ('id', 'fk_teste_mesa', 'fk_programa_o', 'fk_programa_p')
+    list_display = ('id', 'fk_programa_o', 'fk_programa_p')
 
 
 class ValoresTesteAdmin(admin.ModelAdmin):

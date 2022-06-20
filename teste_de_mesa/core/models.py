@@ -1,13 +1,4 @@
-from tabnanny import verbose
 from django.db import models
-
-
-class TesteMesa(models.Model):
-    data_teste_mesa = models.DateField('Data de criação', auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Teste de mesa'
-        verbose_name_plural = 'Testes de mesa'
 
 
 class ProgramaO(models.Model):
@@ -28,6 +19,34 @@ class ProgramaP(models.Model):
         verbose_name_plural = 'Programas P'
 
 
+class CasoTeste(models.Model):
+    fk_programa_o = models.ForeignKey(ProgramaO, on_delete=models.CASCADE)
+    fk_programa_p = models.ForeignKey(ProgramaP, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Caso de teste'
+        verbose_name_plural = 'Casos de teste'
+
+
+class TesteMesa(models.Model):
+    data_teste_mesa = models.DateField('Data de criação', auto_now_add=True)
+    fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Teste de mesa'
+        verbose_name_plural = 'Testes de mesa'
+
+
+class ValoresTeste(models.Model):
+    parametro = models.CharField('Parâmetro', max_length=100)
+    valor = models.CharField('Valor', max_length=100)
+    fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Valor caso de teste'
+        verbose_name_plural = 'Valores casos de teste'
+
+
 class DadosTesteMesa(models.Model):
     linha = models.CharField('Linha', max_length=5)
     num_equacao = models.CharField('Numero da equação', max_length=1)
@@ -40,23 +59,3 @@ class DadosTesteMesa(models.Model):
     class Meta:
         verbose_name = 'Dado teste de mesa'
         verbose_name_plural = 'Dados testes de mesa'
-
-
-class CasoTeste(models.Model):
-    fk_programa_o = models.ForeignKey(ProgramaO, on_delete=models.CASCADE)
-    fk_programa_p = models.ForeignKey(ProgramaP, on_delete=models.CASCADE)
-    fk_teste_mesa = models.ForeignKey(TesteMesa, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Caso de teste'
-        verbose_name_plural = 'Casos de teste'
-
-
-class ValoresTeste(models.Model):
-    parametro = models.CharField('Parâmetro', max_length=100)
-    valor = models.CharField('Valor', max_length=100)
-    fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Valor caso de teste'
-        verbose_name_plural = 'Valores casos de teste'
