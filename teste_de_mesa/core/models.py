@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class ProgramaO(models.Model):
     data_implementacao = models.DateField('Data de implementação', auto_now_add=True)
     codigo = models.TextField('Código')
