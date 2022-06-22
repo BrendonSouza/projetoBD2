@@ -2,7 +2,7 @@ from django.db import models
 
 
 class ProgramaO(models.Model):
-    data_implementacao = models.DateField('Data de implementação')
+    data_implementacao = models.DateField('Data de implementação', auto_now_add=True)
     codigo = models.TextField('Código')
 
     class Meta:
@@ -11,7 +11,7 @@ class ProgramaO(models.Model):
 
 
 class ProgramaP(models.Model):
-    data_implementacao = models.DateField('Data de implementação')
+    data_implementacao = models.DateField('Data de implementação', auto_now_add=True)
     codigo = models.TextField('Código')
 
     class Meta:

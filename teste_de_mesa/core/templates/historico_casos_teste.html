@@ -20,6 +20,7 @@
         </header>
 
         <div class="db-table-wrapper">
+            {% if casos_teste %}
             <table class="db-table" type="text">
                 <tr>
                     <th>ID</th>
@@ -50,6 +51,11 @@
                 </tr>
                 {% endfor %}
             </table>
+            {% else %}
+            <div id="no-register-div">
+                <h3>Não há casos de teste registrados</h3>
+            </div>
+            {% endif %}
         </div>
     </body>
 </html>

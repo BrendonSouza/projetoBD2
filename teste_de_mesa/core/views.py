@@ -1,9 +1,24 @@
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, FormView
 from .models import CasoTeste, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValoresTeste
+from django.contrib import messages
+from .forms import TesteMesaForm
 
 
-class IndexView(TemplateView):
+class IndexView(FormView):
     template_name = 'index.html'
+    form_class = TesteMesaForm
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form, *args, **kwargs):
+        form.save_code()
+        messages.success(self.request, 'Código salvo com sucesso')
+        return super(IndexView, self).form_valid(form, *args, **kwargs)
+
+    def form_invalid(self, form, *args, **kwargs):
+        messages.error(self.request, 'Erro ao salvar')
+        return super(IndexView, self).form_invalid(form, *args, **kwargs)
+
 
 
 class TestesMesaView(TemplateView):
