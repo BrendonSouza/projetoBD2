@@ -28,15 +28,6 @@ class CasoTeste(models.Model):
         verbose_name_plural = 'Casos de teste'
 
 
-class TesteMesa(models.Model):
-    data_teste_mesa = models.DateField('Data de criação', auto_now_add=True)
-    fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Teste de mesa'
-        verbose_name_plural = 'Testes de mesa'
-
-
 class ValoresTeste(models.Model):
     parametro = models.CharField('Parâmetro', max_length=100)
     valor = models.CharField('Valor', max_length=100)
@@ -54,8 +45,17 @@ class DadosTesteMesa(models.Model):
     dado_hexa_o = models.CharField('Dado hexadecimal O', max_length=100)
     variavel_p = models.CharField('Variável P', max_length=100)
     dado_hexa_p = models.CharField('Dado hexadecimal P', max_length=100)
-    fk_teste_mesa = models.ForeignKey(TesteMesa, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Dado teste de mesa'
         verbose_name_plural = 'Dados testes de mesa'
+
+
+class TesteMesa(models.Model):
+    data_teste_mesa = models.DateField('Data de criação', auto_now_add=True)
+    fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
+    fk_dados = models.ForeignKey(DadosTesteMesa, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Teste de mesa'
+        verbose_name_plural = 'Testes de mesa'
