@@ -1,30 +1,45 @@
-from django.views.generic import TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, FormView
 from .models import CasoTeste, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValoresTeste
+from django.contrib import messages
+from .forms import TesteMesaForm
 
 
-class IndexView(TemplateView):
+class IndexView(FormView):
     template_name = 'index.html'
+    form_class = TesteMesaForm
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form, *args, **kwargs):
+        form.save_code()
+        messages.success(self.request, 'Código salvo com sucesso')
+        return super(IndexView, self).form_valid(form, *args, **kwargs)
+
+    def form_invalid(self, form, *args, **kwargs):
+        messages.error(self.request, 'Erro ao salvar')
+        return super(IndexView, self).form_invalid(form, *args, **kwargs)
 
 
-class HistoricoView(TemplateView):
-    template_name = 'historico.html'
+
+class TestesMesaView(TemplateView):
+    template_name = 'historico_testes_mesa.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['testes_de_mesa'] = TesteMesa.objects.all()
+        context['testes_de_mesa'] = TesteMesa.objects.filter(fk_caso_teste=self.kwargs.get('pk'))
 
         return context
 
 
-class HistoricoDadosView(TemplateView):
+class DadosView(TemplateView):
     template_name = 'historico_dados.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['dados_testes_de_mesa'] = DadosTesteMesa.objects.filter(
-            fk_teste_mesa=self.kwargs.get('pk'))
+        context['dados_teste_de_mesa'] = DadosTesteMesa.objects.get(
+            id=self.kwargs.get('pk'))
 
         return context
 
@@ -35,9 +50,7 @@ class CasosTesteView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['casos_teste'] = CasoTeste.objects.filter(
-            fk_teste_mesa=self.kwargs.get('pk')
-        )
+        context['casos_teste'] = CasoTeste.objects.all()
 
         return context
 

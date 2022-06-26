@@ -19,13 +19,24 @@
             <p>Execute testes de mesa do seu código em Python</p>
         </header>
 
-        <form id="code-editor-wrapper">
-            <button class="primary-button">Executar Teste</button>
+        <form id="code-editor-wrapper" method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            <button class="primary-button" type="submit">Executar Teste</button>
             <div id="text-areas-wrapper">
                 <textarea
+                    name="code_editor_o"
+                    placeholder="Codigo do programa O"
                     class="code-editor"
-                    type="text"
                     spellcheck="false"
+                    required
+                ></textarea>
+
+                <textarea
+                    name="code_editor_p"
+                    placeholder="Codigo do programa P"
+                    class="code-editor"
+                    spellcheck="false"
+                    required
                 ></textarea>
 
                 <div class="code-editor table-wrapper">

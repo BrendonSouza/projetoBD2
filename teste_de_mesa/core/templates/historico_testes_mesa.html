@@ -16,7 +16,7 @@
 
         <header>
             <h1>Testes realizados</h1>
-            <p>Visualize o histórico de testes contido no banco de dados</p>
+            <p>ID do caso de teste: {{ pk }}</p>
         </header>
 
         <div class="db-table-wrapper">
@@ -25,7 +25,6 @@
                     <th>ID</th>
                     <th>Data</th>
                     <th>Dados</th>
-                    <th>Casos de teste</th>
                 </tr>
                 {% for teste in testes_de_mesa %}
                 <tr>
@@ -33,13 +32,7 @@
                     <td>{{ teste.data_teste_mesa }}</td>
                     <td>
                         <a
-                            href="{% url 'historico_dados' teste.id %}"
-                            ><button class="secondary-button">Ver</button></a
-                        >
-                    </td>
-                    <td>
-                        <a
-                            href="{% url 'historico_casos_teste' teste.id %}"
+                            href="{% url 'historico_dados' teste.fk_dados.id %}"
                             ><button class="secondary-button">Ver</button></a
                         >
                     </td>
@@ -47,5 +40,9 @@
                 {% endfor %}
             </table>
         </div>
+
+        <button class="primary-button" type="button" onclick="history.back()">
+            Voltar
+        </button>
     </body>
 </html>

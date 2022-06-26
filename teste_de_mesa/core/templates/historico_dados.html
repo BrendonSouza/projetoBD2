@@ -16,7 +16,7 @@
 
         <header>
             <h1>Dados do teste</h1>
-            <p>ID do teste de mesa: {{ pk }}</p>
+            <p>ID dos dados: {{ pk }}</p>
         </header>
 
         <div class="db-table-wrapper">
@@ -30,17 +30,15 @@
                     <th>Variavel P</th>
                     <th>Dado Hexa P</th>
                 </tr>
-                {% for dado in dados_testes_de_mesa %}
                 <tr>
-                    <td>{{ dado.id }}</td>
-                    <td>{{ dado.linha }}</td>
-                    <td>{{ dado.num_equacao }}</td>
-                    <td>{{ dado.variavel_o }}</td>
-                    <td>{{ dado.dado_hexa_o }}</td>
-                    <td>{{ dado.variavel_p }}</td>
-                    <td>{{ dado.dado_hexa_p }}</td>
+                    <td>{{ dados_teste_de_mesa.id }}</td>
+                    <td>{{ dados_teste_de_mesa.linha }}</td>
+                    <td>{{ dados_teste_de_mesa.num_equacao }}</td>
+                    <td>{{ dados_teste_de_mesa.variavel_o }}</td>
+                    <td>{{ dados_teste_de_mesa.dado_hexa_o }}</td>
+                    <td>{{ dados_teste_de_mesa.variavel_p }}</td>
+                    <td>{{ dados_teste_de_mesa.dado_hexa_p }}</td>
                 </tr>
-                {% endfor %}
             </table>
         </div>
 
