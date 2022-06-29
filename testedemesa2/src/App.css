@@ -1,0 +1,86 @@
+.App {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: #23252b;
+}
+
+.headerContainer{
+  height: 50px;
+  background-color: #f39c12;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1{
+  font-family: 'Lobster', sans-serif;
+}
+
+h4{
+  font-family: 'Lato', sans-serif;
+  color: white;
+  font-size: 22px;
+  font-weight: 300;
+  border-bottom: 1px solid #f39c12;
+  padding-bottom: 8px;
+
+}
+
+#resultado{
+  font-size: 30px;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+}
+
+form {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.codigoPrincipal {
+  width: 48%;
+  height: 400px;
+}
+
+.codigoSecundario{
+  width: 48%;
+  height: 400px;
+}
+
+.testeMesaContainer{
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+}
+
+.testeMesa{
+  width: 100%;
+  height: 100%;
+  color: #f39c12;
+
+}
+
+table {
+  width: 50%;
+}
+
+table, th, td {
+  border: 1px solid #f39c12; 
+  color: #fff;
+}
+
+th, td {
+  padding: 5px;
+}
