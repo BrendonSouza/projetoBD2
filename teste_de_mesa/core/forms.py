@@ -1,6 +1,6 @@
 from django import forms
-from .models import CasoTeste, DadosTesteMesa, PalavraReservada, ProgramaO, ProgramaP, TesteMesa
-
+from .models import CasoTeste, DadosTesteMesa, ProgramaO, ProgramaP, TesteMesa
+from .separator import separate
 
 class TesteMesaForm(forms.Form):
     code_editor_o = forms.CharField(
@@ -21,11 +21,17 @@ class TesteMesaForm(forms.Form):
 
         caso_teste = CasoTeste(fk_programa_o=p_o, fk_programa_p=p_p)
         caso_teste.save()
+        
 
         for line in lines_p:
-            dados = DadosTesteMesa(linha=line)
-            dados.save()
-            teste_mesa = TesteMesa(fk_dados=dados, fk_caso_teste=caso_teste)
-            teste_mesa.save()
+            tokens = separate(line)
+            for token in tokens:
+                print(token['type'])
+                if token['type'] == 'name':
+                    dados = DadosTesteMesa(linha=token['line'], variavel_p=token['name'], dado_hexa_p=token['name'].encode('utf-8').hex())
+                    dados.save()
+                    teste_mesa = TesteMesa(fk_dados=dados, fk_caso_teste=caso_teste)
+                    teste_mesa.save()
+
 
 

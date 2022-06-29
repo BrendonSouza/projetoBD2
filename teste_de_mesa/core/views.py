@@ -1,3 +1,4 @@
+from email import contentmanager
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
 from .models import CasoTeste, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValoresTeste
@@ -19,6 +20,13 @@ class IndexView(FormView):
         messages.error(self.request, 'Erro ao salvar')
         return super(IndexView, self).form_invalid(form, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        caso = CasoTeste.objects.latest('add')
+        testes = TesteMesa.objects.filter(fk_caso_teste=caso)
+        context['testes'] = testes
+
+        return context
 
 
 class TestesMesaView(TemplateView):

@@ -19,8 +19,7 @@ class ProgramaPAdmin(admin.ModelAdmin):
 
 @admin.register(DadosTesteMesa)
 class DadosTesteMesaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'linha', 'num_equacao', 'variavel_o',
-                    'dado_hexa_o', 'variavel_p', 'dado_hexa_p')
+    list_display = ('id', 'linha', 'variavel_p', 'dado_hexa_p')
 
 @admin.register(CasoTeste)
 class CasoTesteAdmin(admin.ModelAdmin):

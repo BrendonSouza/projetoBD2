@@ -19,6 +19,7 @@ class ProgramaP(models.Model):
 
 
 class CasoTeste(models.Model):
+    add = models.DateTimeField('Adicionado', auto_now_add=True)
     fk_programa_o = models.ForeignKey(ProgramaO, on_delete=models.CASCADE)
     fk_programa_p = models.ForeignKey(ProgramaP, on_delete=models.CASCADE)
 
@@ -38,10 +39,8 @@ class ValoresTeste(models.Model):
 
 
 class DadosTesteMesa(models.Model):
-    linha = models.CharField('Linha', max_length=5)
-    num_equacao = models.CharField('Numero da equação', max_length=1)
-    variavel_o = models.CharField('Variável O', max_length=100)
-    dado_hexa_o = models.CharField('Dado hexadecimal O', max_length=100)
+    add = models.DateTimeField('Adicionado', auto_now_add=True)
+    linha = models.CharField('Linha', max_length=1000)
     variavel_p = models.CharField('Variável P', max_length=100)
     dado_hexa_p = models.CharField('Dado hexadecimal P', max_length=100)
 

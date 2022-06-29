@@ -50,3 +50,7 @@
     min-width: 150px;
     max-width: 150px;
 }
+
+.flux-control {
+    margin: 10px;
+}
