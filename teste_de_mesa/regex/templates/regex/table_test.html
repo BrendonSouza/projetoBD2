@@ -1,0 +1,206 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style_insert_code.css' %}">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+    <section class="middle">
+        <!-- TITULO -->
+        <h2 id="title_h2">ETAPA 3: Tabelas para Teste de Mesa</h2>
+        <hr id="line" />
+
+        <!-- PARTE CENTRAL -->
+        <section class="container">
+
+            <!-- <form action="/result" method="post"> -->
+            <form action="/result">
+                <!-- LINHA COM TABELA DE INSERÇÃO DOS DADOS -->
+                <section class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Linha</th>
+                                <th scope="col">Eq.</th>
+                                <th scope="col">Variável O</th>
+                                <th scope="col">Dado de O (Hexadecimal)</th>
+                                <th scope="col">Variável P</th>
+                                <th scope="col">Dado de P (Hexadecimal)</th>
+                                <th>
+                                    <button type="button" class="btn btn-success" onclick="addRow()">+</button>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+
+                            <!-- LINHA DE FORMULÁRIO (A REPETIR QUANTO O USUÁRIO QUISER)-->
+                            <tr id="row0">
+                                <!-- SELEÇÃO DA LINHA DO CÓDIGO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="numero_linhas">
+                                        <!-- <% let prog_o = program.PROG_O.split('\n') %>
+                                        <% for (var i = 0; i < prog_o.length; i++) { %> -->
+                                        <option value="<%= i %>">#<%= i %> <%= prog_o[i] %></option>
+                                        <!-- <% } %> -->
+                                    </select>
+                                </td>
+
+                                <!-- SELEÇÃO DA EQUAÇÃO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="equacoes">
+                                        <option value="1" selected>M(c-uso)</option>
+                                        <option value="2">M(p-uso)</option>
+                                        <option value="3">V(var)</option>
+                                    </select>
+                                </td>
+
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM O -->
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                    name="var_o" placeholder="Variável O"></td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_o" placeholder="Valor O"></td>
+
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM P-->
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                    name="var_p" placeholder="Variável P"></td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_p" placeholder="Valor P"></td>
+
+                                <td>
+                                    <button type="button" id="close0" class="btn btn-danger my-2" onclick="removeRow(this)">X</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <h2 class="h4 mt-5 mb-3">Tabela de Proposições Lógicas e Constantes</h2>
+
+                    <!-- TABELA DE PROPOSIÇÕES LÓGICAS E CONSTANTES-->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Linha</th>
+                                <th scope="col">Eq.</th>
+                                <th scope="col">Tipo (O)</th>
+                                <th scope="col">Dado de O</th>
+                                <th scope="col">Tipo(P)</th>
+                                <th scope="col">Dado de P</th>
+                                <th>
+                                    <button type="button" class="btn btn-success" onclick="addRowLog()">+</button>
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tableBody_PROPCONST">
+
+                            <!-- LINHA DE FORMULÁRIO (A REPETIR QUANTO O USUÁRIO QUISER)-->
+                            <tr id="row0">
+                                <!-- SELEÇÃO DA LINHA DO CÓDIGO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="numero_linhas_PROPCONST">
+                                        <!-- <% for (var i = 0; i < prog_o.length; i++) { %> -->
+                                        <option value="<%= i %>">#<%= i %> <%= prog_o[i] %></option>
+                                        <!-- <% } %> -->
+                                    </select>
+                                </td>
+
+                                <!-- SELEÇÃO DA EQUAÇÃO -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="equacoes_PROPCONST">
+                                        <option value="1" selected>M(c-uso)</option>
+                                        <option value="2">M(p-uso)</option>
+                                        <option value="3">V(var)</option>
+                                    </select>
+                                </td>
+
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM O -->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="tipo_o_PROPCONST">
+                                        <option value="1" selected>Proposição Lógica Simples</option>
+                                        <option value="2">Proposição Lógica Composta</option>
+                                        <option value="3">Constante</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_o_PROPCONST" placeholder="Valor O"></td>
+
+                                <!-- SELEÇÃO DA VARIÁVEL A SER DEFINIDA EM P-->
+                                <td>
+                                    <select class="form-select form-select-mg my-2" aria-label=".form-select-lg example"
+                                        name="tipo_p_PROPCONST">
+                                        <option value="1" selected>Proposição Lógica Simples</option>
+                                        <option value="2">Proposição Lógica Composta</option>
+                                        <option value="3">Constante</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" class="form-control my-2" id="exampleFormControlInput1"
+                                        name="value_var_p_PROPCONST" placeholder="Valor P"></td>
+
+                                <td>
+                                    <button type="button" id="close0" class="btn btn-danger my-2" onclick="removeRowLog(this)">X</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </section>
+
+
+                <!-- BOTÕES VOLTAR~PROXIMO -->
+                <section class="d-flex justify-content-between p-3">
+                    <a href="/testcase" class="btn-lg btn-warning">Voltar</a>
+                    <button type="submit" class="btn-lg btn-success">Próximo</a>
+                </section>
+
+            </form>
+
+
+            <!-- FORMULAS -->
+            <section class="row my-5">
+                <h2 class="h4">Fórmulas</h2>
+                <div class="col col-md-3 my-3">
+                    <p>M(c-uso) (i)</p>
+                    <img src="img/cuso.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#MCUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-4 my-3">
+                    <p>M(p-uso) (ii)</p>
+                    <img src="img/puso.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#MPUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-2 my-3">
+                    <p>V(var) (iii)</p>
+                    <img src="img/vvar.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#VVAR">VER MAIS</button>
+                </div>
+                <div class="col col-md-3 my-3">
+                    <p>AtE (iv)</p>
+                    <img src="img/ate.png" class="img-fluid" />
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal"
+                        data-bs-target="#ATE">VER MAIS</button>
+                </div>
+            </section>
+        </section>
+    </section>
+
+    <!-- <%- include('./include/modalResult') %>
+    <%- include('./include/scripts') %> -->
+</body>
+</html>
