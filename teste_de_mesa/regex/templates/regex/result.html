@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style_insert_code.css' %}">  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <section class="middle">
+
+        <!-- MENU DE ETAPAS -->
+        <nav class="col-sm-12 d-flex justify-content-center">
+            <ul class="nav nav-tabs ">
+                <li class="nav-item"><p>ETAPA 1</p></li>
+                <li class="nav-item"><p>ETAPA 2</p></li>
+                <li class="nav-item"><p>ETAPA 3</p></li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">RESULTADO</a>
+                </li>
+            </ul>
+         </nav>
+
+        <!-- TITULO -->
+        <h2 id="title_h2">RESULTADO DO TESTE</h2>
+        <hr id="line" />
+
+
+        <!-- PARTE CENTRAL -->
+        <section class="container">
+
+            <!-- CALCULO DE ATE PARA O -->
+            <section class="row">
+                <h2 class="h4">Cálculo de AtE para o Programa O</h2>
+                <table class="table table-hover TableProg m-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nº</th>
+                            <th scope="col">Código</th>
+                            <th scope="col" class="text-center">M(c-uso)</th>
+                            <th scope="col" class="text-center">M(p-uso)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- prog_o é um array onde cada indice corresponde a uma linha do código de O -->
+                        <!-- <% let prog_o = program.PROG_O.split('\n') %>
+                        <% for (var i = 0; i < prog_o.length; i++) { %> -->
+                            <tr>
+                                <th scope="row"><%= i %></th>
+                                <td><%= prog_o[i] %></td>
+                                <td class="text-center"><%= line_x[i] %></td>
+                                <td class="text-center"><%= line_o[i] %></td>
+                            </tr>
+                        <!-- <% } %> -->
+
+                        <tr class="table-primary">
+                            <th colspan="2" style="text-align: right;">Soma:</th>
+                            <th class="text-center"><%= hexa_c_results[0] %></th>
+                            <th class="text-center"><%= hexa_p_results[0] %></th>
+                        </tr>
+                        <tr class="table-primary">
+                            <th colspan="2" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_c_results[0], 16)).toString(16) %></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" style="text-align: right;">V(var)</th>
+                            <th colspan="2" class="text-center"><%= hexa_v_results[0] %></th>
+                        </tr>
+                        <tr class="table-info">
+                            <th colspan="2" style="text-align: right;">Cálculo AtE do Programa O:</th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_c_results[0], 16) + parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+
+            <!-- CALCULO DE ATE PARA P -->
+            <section class="row my-5">
+                <h2 class="h4">Cálculo de AtE para o Programa P</h2>
+                <table class="table table-hover TableProg m-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nº</th>
+                            <th scope="col">Código</th>
+                            <th scope="col" class="text-center">M(c-uso)</th>
+                            <th scope="col" class="text-center">M(p-uso)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- prog_p é um array onde cada indice corresponde a uma linha do código de P -->
+                        <!-- <% let prog_p = program.PROG_P.split('\n') %>
+                        <% for (var i = 0; i < prog_p.length; i++) { %> -->
+                            <tr class="<%if (line_p[i]!=line_o[i]) {%>  table-danger  <%}%>">
+                                <th scope="row"><%= i %></th>
+                                <td><%= prog_p[i] %></td>
+                                <td class="text-center"><%= line_y[i] %></td>
+                                <td class="text-center"><%= line_p[i] %></td>
+                            </tr>
+                        <!-- <% } %> -->
+
+                        <tr class="table-primary">
+                            <th colspan="2" style="text-align: right;">Soma:</th>
+                            <th class="text-center"><%= hexa_c_results[1] %></th>
+                            <th class="text-center"><%= hexa_p_results[1] %></th>
+                        </tr>
+                        <tr class="table-primary">
+                            <th colspan="2" class="text-left text-right" style="text-align: right;">Sub-Total(Mc-uso+Mp-uso):</th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_c_results[1], 16)).toString(16) %></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2" style="text-align: right;">V(var)</th>
+                            <th colspan="2" class="text-center"><%= hexa_v_results[1] %></th>
+                        </tr>
+                        <tr class="table-info">
+                            <th colspan="2" style="text-align: right;">Cálculo AtE do Programa O:</th>
+                            <th colspan="2" class="text-center"><%= (parseInt(hexa_c_results[1], 16) + parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+
+
+            <!-- RESULTADO DA COMPARAÇÃO -->
+            <section class="row my-5">
+                <h2 class="h4">Resultado da Comparação</h2>
+                <!-- result GUARDA A QUANTIDADE DE LINHAS QUE NÃO CONTÉM MESMO P-USO E C-USO -->
+                <!-- <% var result = 0 %>
+                <% for (var i = 0; i < prog_o.length; i++) { %>
+                    <% if (line_p[i]!=line_o[i]) { %>
+                        <% result++ %>
+                    <%}%>
+                <%}%> -->
+                
+                <h4 class="h6" style="color:red"><%= result %> linha encontrada.</h4>
+                <table class="table table-hover TableProg m-3">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th scope="col" colspan="3">Programa O</th>
+                            <th scope="col" colspan="3">Programa P</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Nº</th>
+
+                            <th scope="col">Código</th>
+                            <th scope="col" class="text-center">M(c-uso)</th>
+                            <th scope="col" class="text-center">M(p-uso)</th>
+
+                            <th scope="col">Código</th>
+                            <th scope="col" class="text-center">M(c-uso)</th>
+                            <th scope="col" class="text-center">M(p-uso)</th>
+                        </tr>
+                        <!-- <% for (var i = 0; i < prog_o.length; i++) { %>
+                            <% if (line_p[i]!=line_o[i]) { %> -->
+                                <tr class="table-danger" style="color:red;">
+                                    <th scope="row"><%= i %></th>
+    
+                                    <!-- PROGRAMA O -->
+                                    <td><%= prog_o[i] %></td>
+                                    <td class="text-center"><%= line_x[i] %></td>
+                                    <td class="text-center"><%= line_o[i] %></td>
+                                        
+                                    <!-- PROGRAMA P -->
+                                    <td><%= prog_p[i] %></td>
+                                    <td class="text-center"><%= line_y[i] %></td>
+                                    <td class="text-center"><%= line_p[i] %></td>
+                                </tr>
+                            <!-- <%}%>
+                            
+                        <% } %> -->
+
+                    </tbody>
+                </table>
+
+
+                <table class="table table-hover TableProg m-3">
+                    <thead>
+                        <tr>
+                            <th>Cálculo</th>
+                            <th scope="col">Programa O</th>
+                            <th scope="col">Programa P</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="col">Soma M(c-uso):</th>
+                            <th scope="col"><%= hexa_c_results[0] %></th>
+                            <th scope="col"><%= hexa_c_results[1] %></th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Soma M(p-uso):</th>
+                            <th scope="col"><%= hexa_p_results[0] %></th>
+                            <th scope="col"><%= hexa_p_results[1] %></th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Sub-Total(Mc-uso+Mp-uso):</th>
+                            <th scope="col"><%= (parseInt(hexa_p_results[0], 16) + parseInt(hexa_c_results[0], 16)).toString(16) %></th>
+                            <th scope="col"><%= (parseInt(hexa_p_results[1], 16) + parseInt(hexa_c_results[1], 16)).toString(16) %></th>
+                        </tr>
+                        <tr>
+                            <th scope="col">V(var):</th>
+                            <th scope="col"><%= hexa_v_results[0] %></th>
+                            <th scope="col"><%= hexa_v_results[1] %></th>
+                        </tr>
+                        <tr class="table-secondary">
+                            <th scope="col">Cálculo AtE do Programa:</th>
+                            <th scope="col"><%= (parseInt(hexa_c_results[0], 16) + parseInt(hexa_p_results[0], 16) + parseInt(hexa_v_results[0], 16)).toString(16) %></th>
+                            <th scope="col"><%= (parseInt(hexa_c_results[1], 16) + parseInt(hexa_p_results[1], 16) + parseInt(hexa_v_results[1], 16)).toString(16) %></th>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+
+
+            <!-- FORMULAS -->
+            <section class="row my-5">
+                <h2 class="h4">Fórmulas</h2>
+                <div class="col col-md-3 my-3">
+                    <p>M(c-uso) (i)</p>
+                    <img src="img/cuso.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#MCUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-4 my-3">
+                    <p>M(p-uso) (ii)</p>
+                    <img src="img/puso.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#MPUSO">VER MAIS</button>
+                </div>
+                <div class="col col-md-2 my-3">
+                    <p>V(var) (iii)</p>
+                    <img src="img/vvar.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#VVAR">VER MAIS</button>
+                </div>
+                <div class="col col-md-3 my-3">
+                    <p>AtE (iv)</p>
+                    <img src="img/ate.png" class="img-fluid"/>
+                    <button type="button" class="btn btn-sm btn-outline-primary my-3" data-bs-toggle="modal" data-bs-target="#ATE">VER MAIS</button>
+                </div>
+            </section>
+
+            <form class="row">
+                <!-- BOTÕES VOLTAR~PROXIMO -->
+                <section class="d-flex justify-content-between p-3">
+                    <a href="/tabletest" type="submit" class="btn-lg btn-warning">Voltar</a>
+                    <a href="/conf" type="submit" class="btn-lg btn-success">Refazer Teste</a>
+                </section>
+            </form>
+        </section>
+    </section>
+
+</body>
+</html>
