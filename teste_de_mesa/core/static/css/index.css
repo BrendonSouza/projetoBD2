@@ -45,6 +45,10 @@
     text-align: left;
 }
 
+.test-table{
+    margin-bottom: 25px;
+}
+
 .test-table tr > * {
     padding: 5px;
     min-width: 150px;

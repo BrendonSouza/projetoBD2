@@ -22,10 +22,6 @@
         <form id="code-editor-wrapper" method="post" action="{% url 'index' %}">
             {% csrf_token %}
             <button class="primary-button" type="submit">Executar Teste</button>
-            <div class="flux-control">
-                <button class="secondary-button" type="submit">Parar</button>
-                <button class="secondary-button" type="submit">Próximo</button>
-            </div>
             <div id="text-areas-wrapper">
                 <textarea
                 name="code_editor_o"
@@ -44,21 +40,30 @@
                 ></textarea>
 
                 <div class="code-editor table-wrapper">
+                    {% for dicionario in linhas %}
+                    <h3>Linha {{dicionario.linha}}</h3>
                     <table class="test-table" type="text">
                         <tr>
-                            <th>Variável</th>
-                            <th>Valor hexa</th>
+                            <th>Parametro</th>
+                            <th>Valor</th>
                         </tr>
-                        {% for teste in testes %}
+                        {% for valor in valores %}
+                        {% if valor.container == dicionario %}
                         <tr>
-                            <td>{{teste.fk_dados.variavel_p}}</td>
-                            <td>{{teste.fk_dados.dado_hexa_p}}</td>
+                            <td>{{valor.parametro}}</td>
+                            <td>{{valor.valor}}</td>
                         </tr>
+                        {% endif %}
                         {% endfor %}
                     </table>
+                    {% endfor %}
                 </div>
             </div>
         </form>
+        <div class="flux-control">
+            <button class="secondary-button" onclick="window.location.reload()" >Parar</button>
+            <button class="secondary-button" onclick="window.location.reload()" >Próximo</button>
+        </div>
         
         <script src="{% static 'js/scripts.js' %}"></script>
     </body>
