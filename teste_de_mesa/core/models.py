@@ -31,15 +31,6 @@ class CasoTeste(models.Model):
         verbose_name_plural = 'Casos de teste'
 
 
-class ValoresTeste(models.Model):
-    parametro = models.CharField('Parâmetro', max_length=100)
-    valor = models.CharField('Valor', max_length=100)
-    fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Valor caso de teste'
-        verbose_name_plural = 'Valores casos de teste'
-
 
 class TesteMesa(models.Model):
     data_teste_mesa = models.DateTimeField(

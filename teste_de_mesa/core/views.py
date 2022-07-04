@@ -1,7 +1,6 @@
-from email import contentmanager
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
-from .models import CasoTeste, DicionarioParametros, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValorParametro, ValoresTeste
+from .models import CasoTeste, DicionarioParametros, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValorParametro
 from django.contrib import messages
 from .forms import TesteMesaForm
 from django.template.defaulttags import register
@@ -97,17 +96,5 @@ class ProgramaPView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         context['programa_p'] = ProgramaP.objects.get(id=self.kwargs.get('pk'))
-
-        return context
-
-
-class ValoresTesteView(TemplateView):
-    template_name = 'historico_valores_teste.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['valores_teste'] = ValoresTeste.objects.filter(
-            id=self.kwargs.get('pk'))
 
         return context

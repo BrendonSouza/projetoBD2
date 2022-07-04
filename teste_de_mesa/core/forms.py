@@ -1,5 +1,5 @@
 from django import forms
-from .models import CasoTeste, DadosTesteMesa, DicionarioParametros, ProgramaO, ProgramaP, TesteMesa, ValorParametro, ValoresTeste
+from .models import CasoTeste, DadosTesteMesa, DicionarioParametros, ProgramaO, ProgramaP, TesteMesa, ValorParametro
 from .separator import separate, run_code
 
 
