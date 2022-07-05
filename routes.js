@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const token = require("esprima");
+const conexao = require('./bd_connection');
 
 const ponctuatorAllow = [
   "!=",
@@ -19,18 +20,32 @@ const ponctuatorAllow = [
   "%",
   "=",
 ];
-//document html require
+
 
 router.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
-//the body receive the code from the user and send to the server to be applied an regex to separate the variables and operatos
 router.post("/", (req, res) => {
   const parser = token.tokenize(req.body.programao, { loc: true });
   const vectorSend = [];
   const linhas = req.body.programao.split("\n").map((linha) => linha.trim());
-
+    // const query = `CALL insere_programa_o('${req.body.programao}')`;
+    // const query2 = `CALL insere_programa_p('${req.body.programap}')`;
+    // conexao.query(query, (err, result) => {
+    //     if (err) throw err;
+    //     console.log(result);
+    // });
+    // conexao.query(query2, (err, result) => {
+    //     if (err) throw err;
+    //     console.log(result);
+    // });
+    // const query3 = `CALL insere_teste_de_mesa('teste 1')`;
+    // conexao.query(query3, (err, result) => {
+    //     if (err) throw err;
+    //     console.log(result);
+    // })
+    
   parser.forEach((token) => {
     if (token.type == "Punctuator") {
       if (ponctuatorAllow.includes(token.value)) {
@@ -51,11 +66,12 @@ router.post("/", (req, res) => {
     }
   });
   vectorSend.forEach((token) => {
-  if(typeof(token) == "number"){
-    vectorSend.splice(vectorSend.indexOf(token),1);
-  }
-})
-console.log(vectorSend)
+    if (typeof token == "number") {
+      vectorSend.splice(vectorSend.indexOf(token), 1);
+    }
+  });
+
+  console.log(vectorSend);
 });
 
 /*
