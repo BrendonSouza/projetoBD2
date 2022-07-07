@@ -19,18 +19,20 @@ def run_code(code, variables):
 
     for i in range(len(lines)-1):
         add = '\n'
-        if lines[i+1].startswith(' '):
-            add += '    '
-            add += 'for key, item in new_variables.items():\n'
-            add += '    '
-            add += '    new_variables[key] = eval(key)\n'
-            add += '    '
-            add += 'res.append(cp.deepcopy(new_variables))\n'
+        n = 0
+        if lines[i+1].startswith('    '):
+            n = 1
+            if lines[i+1].startswith('        '):
+                n = 2
+                if lines[i+1].startswith('            '):
+                    n = 3
 
-        else:
-            add += 'for key, item in new_variables.items():\n'
-            add += '    new_variables[key] = eval(key)\n'
-            add += 'res.append(cp.deepcopy(new_variables))\n'
+        add += '    ' * n
+        add += 'for key, item in new_variables.items():\n'
+        add += '    ' * n
+        add += '    new_variables[key] = eval(key)\n'
+        add += '    ' * n
+        add += 'res.append(cp.deepcopy(new_variables))\n'
 
         lines[i] += add
 
@@ -50,7 +52,7 @@ def separate(text):
     tokens = []
     type_translator = {1: 'name', 2: 'number', 3: 'keyword', 54: 'operator'}
     for value in res:
-        if value.type in [1, 2, 54] and '=' in value.line:
+        if value.type in [1, 2, 54] and '=' in value.line and not value.line.endswith(':'):
             if value.type == 1:
                 if value.string not in kwlist:
                     value_type = 1
@@ -70,7 +72,10 @@ if __name__ == '__main__':
     text = '''numero = 1
 array = ['teste', 1]
 for i in range(3):
-    array = 2 + i
+    for j in range(4):
+        array = 2 + i
+        for k in range(5):
+            teste = 'teste'
 '''
 
     code = io.StringIO(text)

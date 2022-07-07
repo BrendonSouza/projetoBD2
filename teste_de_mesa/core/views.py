@@ -49,8 +49,31 @@ class TestesMesaView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['testes_de_mesa'] = TesteMesa.objects.filter(
-            fk_caso_teste=self.kwargs.get('pk'))
+        context['testes_de_mesa'] = TesteMesa.objects.all()
+
+        return context
+
+
+class DicionarioView(TemplateView):
+    template_name = 'historico_dicionario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['dicionarios'] = DicionarioParametros.objects.filter(
+            fk_teste=self.kwargs.get('pk'))
+
+        return context
+
+
+class ValoresParametrosView(TemplateView):
+    template_name = 'historico_valores_parametros.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['parametros'] = ValorParametro.objects.filter(
+            container=self.kwargs.get('pk'))
 
         return context
 
@@ -61,8 +84,8 @@ class DadosView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['dados_teste_de_mesa'] = DadosTesteMesa.objects.get(
-            id=self.kwargs.get('pk'))
+        context['dados_teste_de_mesa'] = DadosTesteMesa.objects.filter(
+            fk_teste=self.kwargs.get('pk'))
 
         return context
 
@@ -73,7 +96,8 @@ class CasosTesteView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['casos_teste'] = CasoTeste.objects.all()
+        context['casos_teste'] = CasoTeste.objects.filter(
+            id=self.kwargs.get('pk'))
 
         return context
 
