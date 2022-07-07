@@ -31,7 +31,6 @@ class CasoTeste(models.Model):
         verbose_name_plural = 'Casos de teste'
 
 
-
 class TesteMesa(models.Model):
     data_teste_mesa = models.DateTimeField(
         'Data de criação', auto_now_add=True)
