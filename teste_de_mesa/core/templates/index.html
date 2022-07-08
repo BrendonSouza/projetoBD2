@@ -18,13 +18,13 @@
             <h1>Teste de Mesa</h1>
             <p>Execute testes de mesa do seu código em Python</p>
         </header>
-
+        
         <form id="code-editor-wrapper" method="post" action="{% url 'index' %}">
             {% csrf_token %}
             <button class="primary-button" type="submit">Executar Teste</button>
             <div id="text-areas-wrapper">
                 <textarea
-                    name="code_editor_o"
+                name="code_editor_o"
                     placeholder="Codigo do programa O"
                     class="code-editor"
                     spellcheck="false"
@@ -40,26 +40,26 @@
                 ></textarea>
 
                 <div class="code-editor table-wrapper">
+                    {% for dicionario in linhas %}
+                    <h3>Linha {{dicionario.linha}}</h3>
                     <table class="test-table" type="text">
                         <tr>
-                            <th>It 1</th>
-                            <th>It 2</th>
-                            <th>It 3</th>
-                            <th>It 4</th>
-                            <th>It 5</th>
+                            <th>Parametro</th>
+                            <th>Valor</th>
                         </tr>
+                        {% for valor in valores %}
+                        {% if valor.container == dicionario %}
                         <tr>
-                            <td>Teste de valores maiores</td>
-                            <td>Teste</td>
-                            <td>Teste</td>
-                            <td>Teste de valores</td>
-                            <td>Teste de valores</td>
+                            <td>{{valor.parametro}}</td>
+                            <td>{{valor.valor}}</td>
                         </tr>
+                        {% endif %}
+                        {% endfor %}
                     </table>
+                    {% endfor %}
                 </div>
             </div>
         </form>
-
         <script src="{% static 'js/scripts.js' %}"></script>
     </body>
 </html>

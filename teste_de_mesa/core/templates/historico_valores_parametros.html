@@ -15,26 +15,21 @@
         {% include 'navbar.html' %}
 
         <header>
-            <h1>Dados do teste</h1>
-            <p>ID dos dados: {{ pk }}</p>
+            <h1>Valores Parametros</h1>
         </header>
 
         <div class="db-table-wrapper">
             <table class="db-table" type="text">
                 <tr>
                     <th>ID</th>
-                    <th>Linha</th>
-                    <th>Variavel P</th>
-                    <th>Dado Hexa P</th>
-                    <th>Adicionado</th>
+                    <th>Parametro</th>
+                    <th>Valor</th>
                 </tr>
-                {% for dado in dados_teste_de_mesa %}
+                {% for parametro in parametros %}
                 <tr>
-                    <td>{{ dado.id }}</td>
-                    <td>{{ dado.linha }}</td>
-                    <td>{{ dado.variavel_p }}</td>
-                    <td>{{ dado.dado_hexa_p }}</td>
-                    <td>{{ dado.add }}</td>
+                    <td>{{ parametro.id }}</td>
+                    <td>{{ parametro.parametro }}</td>
+                    <td>{{ parametro.valor }}</td>
                 </tr>
                 {% endfor %}
             </table>

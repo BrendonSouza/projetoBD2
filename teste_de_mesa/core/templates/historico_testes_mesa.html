@@ -16,7 +16,6 @@
 
         <header>
             <h1>Testes realizados</h1>
-            <p>ID do caso de teste: {{ pk }}</p>
         </header>
 
         <div class="db-table-wrapper">
@@ -24,7 +23,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Data</th>
+                    <th>Caso de teste</th>
                     <th>Dados</th>
+                    <th>Dicionario de variáveis</th>
                 </tr>
                 {% for teste in testes_de_mesa %}
                 <tr>
@@ -32,7 +33,17 @@
                     <td>{{ teste.data_teste_mesa }}</td>
                     <td>
                         <a
-                            href="{% url 'historico_dados' teste.fk_dados.id %}"
+                            href="{% url 'historico_casos_teste' teste.fk_caso_teste.id %}"
+                            ><button class="secondary-button">Ver</button></a
+                        >
+                    </td>
+                    <td>
+                        <a href="{% url 'historico_dados' teste.id %}"
+                            ><button class="secondary-button">Ver</button></a
+                        >
+                    </td>
+                    <td>
+                        <a href="{% url 'historico_dicionario' teste.id %}"
                             ><button class="secondary-button">Ver</button></a
                         >
                     </td>
@@ -41,8 +52,5 @@
             </table>
         </div>
 
-        <button class="primary-button" type="button" onclick="history.back()">
-            Voltar
-        </button>
     </body>
 </html>

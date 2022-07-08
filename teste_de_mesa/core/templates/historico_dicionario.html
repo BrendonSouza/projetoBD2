@@ -15,41 +15,28 @@
         {% include 'navbar.html' %}
 
         <header>
-            <h1>Casos do teste</h1>
-            <p>Veja o histórico dos casos de teste realizados</p>
+            <h1>Dicionario</h1>
         </header>
 
         <div class="db-table-wrapper">
-            {% if casos_teste %}
             <table class="db-table" type="text">
                 <tr>
                     <th>ID</th>
-                    <th>Programa O</th>
-                    <th>Programa P</th>
-                    <th>Data de adição</th>
+                    <th>Linha</th>
+                    <th>Valores Parâmetros</th>
                 </tr>
-                {% for caso in casos_teste %}
+                {% for dicionario in dicionarios %}
                 <tr>
-                    <td>{{ caso.id }}</td>
+                    <td>{{ dicionario.id }}</td>
+                    <td>{{ dicionario.linha }}</td>
                     <td>
-                        <a href="{% url 'historico_programa_o' caso.id %}"
-                            ><button class="secondary-button">Ver</button></a>
-                    </td>
-                    <td>
-                        <a href="{% url 'historico_programa_p' caso.id %}"
-                            ><button class="secondary-button">Ver</button></a>
-                    </td>
-                    <td>
-                        {{ caso.add }}
+                        <a href="{% url 'historico_valores_parametros' dicionario.id %}"
+                            ><button class="secondary-button">Ver</button></a
+                        >
                     </td>
                 </tr>
                 {% endfor %}
             </table>
-            {% else %}
-            <div id="no-register-div">
-                <h3>Não há casos de teste registrados</h3>
-            </div>
-            {% endif %}
         </div>
 
         <button class="primary-button" type="button" onclick="history.back()">

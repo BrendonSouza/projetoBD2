@@ -1,8 +1,14 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, FormView
-from .models import CasoTeste, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValoresTeste
+from .models import CasoTeste, DicionarioParametros, ProgramaO, ProgramaP, TesteMesa, DadosTesteMesa, ValorParametro
 from django.contrib import messages
 from .forms import TesteMesaForm
+from django.template.defaulttags import register
+
+
+@register.filter
+def get_value(dictionary, key):
+    return dictionary.get(key)
 
 
 class IndexView(FormView):
@@ -11,7 +17,7 @@ class IndexView(FormView):
     success_url = reverse_lazy('index')
 
     def form_valid(self, form, *args, **kwargs):
-        form.save_code()
+        form.save_variables()
         messages.success(self.request, 'Código salvo com sucesso')
         return super(IndexView, self).form_valid(form, *args, **kwargs)
 
@@ -19,6 +25,22 @@ class IndexView(FormView):
         messages.error(self.request, 'Erro ao salvar')
         return super(IndexView, self).form_invalid(form, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        if TesteMesa.objects.all():
+            teste = TesteMesa.objects.latest('data_teste_mesa')
+            context['dados'] = DadosTesteMesa.objects.filter(fk_teste=teste)
+
+            dicionarios_parametros = DicionarioParametros.objects.filter(
+                fk_teste=teste)
+
+            context['linhas'] = dicionarios_parametros
+            context['valores'] = ValorParametro.objects.all()
+
+            print(context['linhas'])
+
+        return context
 
 
 class TestesMesaView(TemplateView):
@@ -27,7 +49,31 @@ class TestesMesaView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['testes_de_mesa'] = TesteMesa.objects.filter(fk_caso_teste=self.kwargs.get('pk'))
+        context['testes_de_mesa'] = TesteMesa.objects.all()
+
+        return context
+
+
+class DicionarioView(TemplateView):
+    template_name = 'historico_dicionario.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['dicionarios'] = DicionarioParametros.objects.filter(
+            fk_teste=self.kwargs.get('pk'))
+
+        return context
+
+
+class ValoresParametrosView(TemplateView):
+    template_name = 'historico_valores_parametros.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['parametros'] = ValorParametro.objects.filter(
+            container=self.kwargs.get('pk'))
 
         return context
 
@@ -38,8 +84,8 @@ class DadosView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['dados_teste_de_mesa'] = DadosTesteMesa.objects.get(
-            id=self.kwargs.get('pk'))
+        context['dados_teste_de_mesa'] = DadosTesteMesa.objects.filter(
+            fk_teste=self.kwargs.get('pk'))
 
         return context
 
@@ -50,7 +96,8 @@ class CasosTesteView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context['casos_teste'] = CasoTeste.objects.all()
+        context['casos_teste'] = CasoTeste.objects.filter(
+            id=self.kwargs.get('pk'))
 
         return context
 
@@ -75,16 +122,3 @@ class ProgramaPView(TemplateView):
         context['programa_p'] = ProgramaP.objects.get(id=self.kwargs.get('pk'))
 
         return context
-
-
-class ValoresTesteView(TemplateView):
-    template_name = 'historico_valores_teste.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['valores_teste'] = ValoresTeste.objects.filter(id=self.kwargs.get('pk'))
-
-        return context
-
-
