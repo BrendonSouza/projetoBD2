@@ -1,5 +1,6 @@
 # Projeto de Banco de Dados 2
-Este projeto consiste em um website onde é possivel executar o teste de mesa de um programa em Python
+Este projeto consiste em um website onde é possivel executar o teste de mesa de um programa em Python.
+Autor desta branch: [@FabioFSS](https://github.com/FabioFSS).
 
 ## Requisitos
 
