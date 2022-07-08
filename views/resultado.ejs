@@ -1,0 +1,107 @@
+<%- include("header.ejs"); %>
+    <style>
+        textarea {
+            resize: none;
+        }
+        *::-webkit-scrollbar {
+            width: 0px;
+            border-radius: 10px;
+        }
+    </style>
+    <body class="bg-secondary overflow-hidden">
+        <div class="container-fluid p-3">
+            <form method="post">
+                <div class="row">
+                    <div class="col bg-light rounded-3 m-3 overflow-auto" style="height: 80vh">
+                        <div class="row p-3">
+                            <div class="">
+                                <table class="table table-sm fs-6">
+                                    <thead class="table-dark">
+                                        <th>Variável/Operador</th>
+                                        <th>Valor</th>
+                                    </thead>
+                                    <tbody>
+                                        <% dados_o.forEach(function(item){ %>
+                                            <tr>
+                                                <td><%= item.variavel %></td>
+                                                <td><%= item.valor %></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="">
+                                <table class="table table-borderless table-dark table-sm fs-6">
+                                    <tbody>
+                                        <% programa_o.forEach(function(item, index){ %>
+                                            <% var n_linha = index + 1 %>
+                                            <tr>
+                                                <% if (n_linha == linha) { %>
+                                                    <td class="col-md-1 table-secondary text-center table-active"><%= n_linha %></td>
+                                                    <td class="table-active" ><%= item %></td>
+                                                <% } else { %>
+                                                    <td class="col-md-1 table-secondary text-center"><%= n_linha %></td>
+                                                    <td><%= item %></td>
+                                                <% } %>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-1 align-self-center text-center">
+                        <a class="btn btn-dark my-2" href="/resultado/<%= id_tm %>/<%= parseInt(linha) + 1%>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
+                            </svg>
+                        </a>
+                        <a class="btn btn-dark my-2" href="/resultado/<%= id_tm %>/<%= parseInt(linha) - 1%>">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="col bg-light rounded-3 m-3 overflow-auto" style="height: 80vh">
+                        <div class="row p-3">
+                            <div class="">
+                                <table class="table table-sm fs-6">
+                                    <thead class="table-dark">
+                                        <th>Variável/Operador</th>
+                                        <th>Valor</th>
+                                    </thead>
+                                    <tbody>
+                                        <% dados_p.forEach(function(item){ %>
+                                            <tr>
+                                                <td><%= item.variavel %></td>
+                                                <td><%= item.valor %></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="">
+                                <table class="table table-borderless table-dark table-sm fs-6">
+                                    <tbody>
+                                        <% programa_p.forEach(function(item, index){ %>
+                                            <% var n_linha = index + 1 %>
+                                            <tr>
+                                                <% if (n_linha == linha) { %>
+                                                    <td class="col-md-1 table-secondary text-center table-active"><%= n_linha %></td>
+                                                    <td class="table-active" ><%= item %></td>
+                                                <% } else { %>
+                                                    <td class="col-md-1 table-secondary text-center"><%= n_linha %></td>
+                                                    <td><%= item %></td>
+                                                <% } %>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

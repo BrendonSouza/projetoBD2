@@ -1,0 +1,19 @@
+<%- include("header.ejs"); %>
+    <body class="bg-secondary">
+        <div class="container-fluid p-3">
+            <form action="inserir" method="post">
+                <div class="row text-center fs-4 my-3">
+                    <div class="col bg-light border text-dark rounded-3 mx-3 p-3">
+                        <label class="mb-3">Programa Original</label>
+                        <textarea type="text" rows="15" name="programa_o" class="form-control"></textarea>
+                    </div>
+                    <div class="col bg-light border text-dark rounded-3 mx-3 p-3 align-self-end">
+                        <label class="mb-3">Programa Produção</label>
+                        <textarea type="text" rows="15" name="programa_p" class="form-control"></textarea>
+                    </div>
+                </div>
+                <input class="btn btn-dark float-end" id="button1" type="submit" name="btIncuir" value="Analisar Códigos" />
+            </form>
+        </div>
+    </body>
+</html>

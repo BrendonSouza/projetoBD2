@@ -1,0 +1,25 @@
+<%- include("header.ejs"); %>
+    <body class="bg-secondary">
+        <div class="container-fluid p-3">
+            <table class="table table-striped table-sm rounded-3 bg-light">
+                <thead>
+                    <tr>
+                        <th>Data do Teste</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% dados.forEach(function(item){ %>
+                        <tr>
+                            <td><%= item.data_tm %></td>
+                            <td class="col-md-2">
+                                <a class="btn btn-sm btn-primary" href="/resultado/<%= item.id_tm %>/1">Detalhes</a>
+                                <a class="btn btn-sm btn-danger" href="/deletar/<%= item.id_tm %>">Deletar</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
