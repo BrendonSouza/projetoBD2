@@ -2,10 +2,16 @@ import io
 from keyword import kwlist
 import tokenize as tk
 import copy as cp
+import re
 
 
 def run_code(code, variables):
-    new_code = cp.copy(code)
+    new_code = ''
+    for line in code.splitlines():
+        if re.match(r'^\s*$', line):
+            continue
+
+        new_code += '\n' + line
     new_code = new_code.replace('\t', '    ')
     new_variables = cp.deepcopy(variables)
 
@@ -19,6 +25,7 @@ def run_code(code, variables):
 
     for i in range(len(lines)-1):
         add = '\n'
+
         if 'else' not in lines[i+1] and 'elif' not in lines[i+1]:
             n = 0
             if lines[i+1].startswith('    '):
@@ -77,8 +84,10 @@ if bool1 or bool2:
     numero = 1
     for i in range(5):
         numero += i
+
 elif bool1 and bool2:
     numero = 2
+
 else:
     numero = 3
 
