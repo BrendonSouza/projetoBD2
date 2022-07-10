@@ -19,20 +19,21 @@ def run_code(code, variables):
 
     for i in range(len(lines)-1):
         add = '\n'
-        n = 0
-        if lines[i+1].startswith('    '):
-            n = 1
-            if lines[i+1].startswith('        '):
-                n = 2
-                if lines[i+1].startswith('            '):
-                    n = 3
+        if 'else' not in lines[i+1] and 'elif' not in lines[i+1]:
+            n = 0
+            if lines[i+1].startswith('    '):
+                n = 1
+                if lines[i+1].startswith('        '):
+                    n = 2
+                    if lines[i+1].startswith('            '):
+                        n = 3
 
-        add += '    ' * n
-        add += 'for key, item in new_variables.items():\n'
-        add += '    ' * n
-        add += '    new_variables[key] = eval(key)\n'
-        add += '    ' * n
-        add += 'res.append(cp.deepcopy(new_variables))\n'
+            add += '    ' * n
+            add += 'for key, item in new_variables.items():\n'
+            add += '    ' * n
+            add += '    new_variables[key] = eval(key)\n'
+            add += '    ' * n
+            add += 'res.append(cp.deepcopy(new_variables))\n'
 
         lines[i] += add
 
@@ -69,19 +70,24 @@ def separate(text):
 
 
 if __name__ == '__main__':
-    text = '''numero = 1
-array = ['teste', 1]
-for i in range(3):
-    for j in range(4):
-        array = 2 + i
-        for k in range(5):
-            teste = 'teste'
+    text = '''bool1 = True
+bool2 = False
+
+if bool1 or bool2:
+    numero = 1
+    for i in range(5):
+        numero += i
+elif bool1 and bool2:
+    numero = 2
+else:
+    numero = 3
+
 '''
 
     code = io.StringIO(text)
     res = tk.generate_tokens(code.readline)
 
-    variables = {'numero': None, 'array': None, 'i': None}
+    variables = {'bool1': None, 'bool2': None, 'numero': None}
     res = run_code(text, variables)
 
     print(res)

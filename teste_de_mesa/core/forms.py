@@ -25,14 +25,9 @@ class TesteMesaForm(forms.Form):
 
         tokens = separate(text_p)
         for token in tokens:
-            if token['type'] == 'name':
-                db_token = DadosTesteMesa.objects.filter(
-                    variavel_p=token['name'], fk_teste=teste_mesa)
-
-                if not db_token:
-                    dados = DadosTesteMesa(fk_teste=teste_mesa,
-                                            linha=token['line'], variavel_p=token['name'], dado_hexa_p=token['name'].encode('utf-8').hex())
-                    dados.save()
+            dados = DadosTesteMesa(fk_teste=teste_mesa,
+                                    linha=token['line'], variavel_p=token['name'], dado_hexa_p=token['name'].encode('utf-8').hex())
+            dados.save()
 
 
         code_tokens = dict()

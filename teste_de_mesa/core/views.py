@@ -38,8 +38,6 @@ class IndexView(FormView):
             context['linhas'] = dicionarios_parametros
             context['valores'] = ValorParametro.objects.all()
 
-            print(context['linhas'])
-
         return context
 
 
