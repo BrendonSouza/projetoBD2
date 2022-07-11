@@ -1,4 +1,18 @@
 DELIMITER //
+CREATE PROCEDURE insere_programa_p(programa_p text, apelido text)
+BEGIN
+INSERT INTO tbl_programa_p (codigo_programa_p,nome_teste_de_mesa) VALUES (programa_p, apelido);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE insere_programa_o(programa_o text, apelido text)
+BEGIN
+INSERT INTO tbl_programa_o (codigo_programa_o,nome_teste_de_mesa) VALUES (programa_o, apelido);
+END //
+DELIMITER ;
+
+DELIMITER //
 CREATE PROCEDURE insere_teste_de_mesa(teste_apelido text)
 BEGIN
 

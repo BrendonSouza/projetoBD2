@@ -8,6 +8,15 @@ router.get("/", (req, res) => {
   res.render("index.ejs");
 });
 
+// router.get('/visualizar/:apelido', (req, res) => {
+//   conexao.query(`SELECT * from tbl_metricas where tbl_metricas.id_teste_de_mesa = (SELECT id FROM tbl_programa_o po where po.nome_teste_de_mesa = "${req.params.apelido}")`, (err, result) => {
+  
+//      console.log(result)
+//     }
+//   );
+// }
+// );
+
 router.post("/", (req, res) => {
   var tokensO = token.tokenize(req.body.programao, { loc: true })
   var tokensP = token.tokenize(req.body.programap, { loc: true })
@@ -34,9 +43,6 @@ router.post("/", (req, res) => {
         if (err) throw err;
         console.log(result);
     })
-    
-    
-  
     eval(preparaCodigoFonte(linhasO, tokensO,"_o"))
    //copy values from vectorSend to vectorO
     vectorSend.forEach((element) => {
@@ -61,6 +67,7 @@ router.post("/", (req, res) => {
     vectorFull.forEach((element) => {
       let queryMetricas = `CALL insere_metricas('${element.variavel_o}', '${element.valor_o}','${element.linha_o}', '${element.variavel_p}', '${element.valor_p}', '${element.linha_p}','${req.body.apelido}')`;
       conexao.query(queryMetricas, (err, result) => {
+        res.redirect('/#visualizar')
         if (err) throw err;
         console.log(result);
       }
