@@ -1,54 +1,40 @@
+import { useState } from "react"
 import './App.css';
 
+import { Formulario } from "./components/Formulario";
+
+
 const App = () => {
+  const listaColumns = ["Variável A", "Variável B", "Variável C", "Variável D", "Variável E", "Variável F"]
+  const listaLinhas = ["15", "22", "82", "31", "11", "12"]
+
   return (
     <div className='App'>
       <div className='headerContainer'>
         <h1>Teste de Mesa</h1>
       </div>
-      <div className='container'>
-        <div className="codigoPrincipal">
-          <h4>Código Principal</h4>
-          <form action="#">
-            <textarea name="codigoPrincipal" id="codigoPrincipal"></textarea>
-          </form>
+      <main className="mainContainer">
+        <Formulario />
+        <div className="testeMesaContainer">
+          <div className="testeMesa">
+            <h4 id='resultado'>Result</h4>
+            <table>
+              <tbody>
+                <tr>
+                  {listaColumns.map(chave => (
+                    <th key={chave}>{chave}</th>
+                  ))}
+                </tr>
+                <tr>
+                  {listaLinhas.map(valor => (
+                    <td key={valor}>{valor}</td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="codigoSecundario">
-          <h4>Código Secundário</h4>
-          <form action="#">
-            <textarea name="codigoSecundario" id="codigoSecundario"></textarea>
-          </form>
-        </div>
-      </div>
-      <div className="testeMesaContainer">
-        <div className="testeMesa">
-          <h4 id='resultado'>Resultado</h4>
-          <table>
-            <tr>
-              <th>Variável A</th>
-              <th>Variável B</th>
-              <th>Variável C</th>
-              <th>Variável D</th>
-              <th>Variável E</th>
-
-            </tr>
-            <tr>
-              <td>15</td>
-              <td>22</td>
-              <td>83</td>
-              <td>83</td>
-              <td>83</td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>88</td>
-              <td>47</td>
-              <td>47</td>
-              <td>47</td>
-            </tr>
-          </table>
-        </div>
-      </div>
+      </main>
 
     </div>
   )
