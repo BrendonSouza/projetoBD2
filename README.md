@@ -55,3 +55,9 @@ Dê start na aplicação
 python manage.py runserver
 ```
 
+## Acessando projeto
+
+Insira a url no seu browser 
+```
+http://127.0.0.1:8000/
+```
