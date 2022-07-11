@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="" method="post" autocomplete="off">
+    <div class="row" style=" justify-content: center;">        
+        <div class="container-a">
+            <a href="{% url 'testelist' %}" style="color: white;">
+                Lista de testes
+            </a>
+        </div>
+
+        <div class="container-b">
+            <a href="{% url 'config' %}" style="color: white;">
+                Iniciar Teste
+            </a>
+        </div>
+    </div>
+
+</form>
+{% endblock content %}
