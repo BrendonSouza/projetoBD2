@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Teste de Mesa</title>
+    <link rel="stylesheet" href="{% static 'css/teste_list.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+</head>
+
+<body style="background-color: #274F65;">
+    <div class="container">
+        <div class="col-md-10 offset-md-1 mt-5">
+            <div class="jumbotron" style="
+                background-color: #5B94B2;
+                border-radius: 10px;
+                box-shadow: #000f1b 0px 0px 40px;
+                height: 88vh;
+            ">
+                <div class="title-box">
+                    <h1 class="te">Testes Realizados</h1>
+                </div>
+                <hr class="my-4">
+                
+                <div class="wrapper">
+                    {% for teste in testes %}
+                        <div class="div-intern">
+                            <div class="div-intern-2">
+                                <h3 style="color: white;">{{teste.id}} </h3>
+                            </div>
+                            <h3 class="text-date">
+                                Teste realizado em {{teste.data_teste}}
+                            </h3>
+                            <div class="div-list">
+                                <a href="{% url 'lists' teste.id %}">
+                                    <i class="far fa-eye fa-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="cont-buttom">
+                    <a href="{% url 'config' %}" style="color: white;">
+                        Novo Teste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
