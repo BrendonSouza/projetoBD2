@@ -5,13 +5,21 @@ from django.contrib import messages
 from .forms import TesteMesaForm
 from django.template.defaulttags import register
 
+# Este arquivo contém a definição das views do projeto
+
 
 @register.filter
 def get_value(dictionary, key):
+    '''Retorna para o frontend o valor de um dicionário.
+    '''
+
     return dictionary.get(key)
 
 
 class IndexView(FormView):
+    '''View para o index do site.
+    '''
+
     template_name = 'index.html'
     form_class = TesteMesaForm
     success_url = reverse_lazy('index')
@@ -42,6 +50,9 @@ class IndexView(FormView):
 
 
 class TestesMesaView(TemplateView):
+    '''View para o histórico do teste de mesa.
+    '''
+
     template_name = 'historico_testes_mesa.html'
 
     def get_context_data(self, **kwargs):
@@ -53,6 +64,9 @@ class TestesMesaView(TemplateView):
 
 
 class DicionarioView(TemplateView):
+    '''View para o histórico do dicionário.
+    '''
+
     template_name = 'historico_dicionario.html'
 
     def get_context_data(self, **kwargs):
@@ -65,6 +79,9 @@ class DicionarioView(TemplateView):
 
 
 class ValoresParametrosView(TemplateView):
+    '''View para o histórico dos valores do dicionário.
+    '''
+
     template_name = 'historico_valores_parametros.html'
 
     def get_context_data(self, **kwargs):
@@ -77,6 +94,9 @@ class ValoresParametrosView(TemplateView):
 
 
 class DadosView(TemplateView):
+    '''View para o histórico dos dados do programa.
+    '''
+
     template_name = 'historico_dados.html'
 
     def get_context_data(self, **kwargs):
@@ -89,6 +109,9 @@ class DadosView(TemplateView):
 
 
 class CasosTesteView(TemplateView):
+    '''View para o histórico dos casos de teste.
+    '''
+
     template_name = 'historico_casos_teste.html'
 
     def get_context_data(self, **kwargs):
@@ -101,6 +124,9 @@ class CasosTesteView(TemplateView):
 
 
 class ProgramaOView(TemplateView):
+    '''View para o histórico dos programas originais.
+    '''
+
     template_name = 'historico_programa_o.html'
 
     def get_context_data(self, **kwargs):
@@ -112,6 +138,9 @@ class ProgramaOView(TemplateView):
 
 
 class ProgramaPView(TemplateView):
+    '''View para o histórico dos programas digitados.
+    '''
+
     template_name = 'historico_programa_p.html'
 
     def get_context_data(self, **kwargs):

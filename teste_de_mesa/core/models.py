@@ -1,7 +1,13 @@
 from django.db import models
 
+# Este arquivo contem a definição dos modelos de dados do projeto
+# nas classes definimos os atributos do modelo e seu tipo
+
 
 class ProgramaO(models.Model):
+    '''Modelo do programa original que será avaliado.
+    '''
+
     data_implementacao = models.DateField(
         'Data de implementação', auto_now_add=True)
     codigo = models.TextField('Código')
@@ -12,6 +18,9 @@ class ProgramaO(models.Model):
 
 
 class ProgramaP(models.Model):
+    '''Modelo do programa digitado que será avaliado.
+    '''
+
     data_implementacao = models.DateField(
         'Data de implementação', auto_now_add=True)
     codigo = models.TextField('Código')
@@ -22,6 +31,9 @@ class ProgramaP(models.Model):
 
 
 class CasoTeste(models.Model):
+    '''Modelo do caso de teste do teste de mesa.
+    '''
+
     add = models.DateTimeField('Adicionado', auto_now_add=True)
     fk_programa_o = models.ForeignKey(ProgramaO, on_delete=models.CASCADE)
     fk_programa_p = models.ForeignKey(ProgramaP, on_delete=models.CASCADE)
@@ -32,6 +44,9 @@ class CasoTeste(models.Model):
 
 
 class TesteMesa(models.Model):
+    '''Modelo do teste de mesa.
+    '''
+
     data_teste_mesa = models.DateTimeField(
         'Data de criação', auto_now_add=True)
     fk_caso_teste = models.ForeignKey(CasoTeste, on_delete=models.CASCADE)
@@ -42,11 +57,17 @@ class TesteMesa(models.Model):
 
 
 class DicionarioParametros(models.Model):
+    '''Modelo do dicionário de parâmetros do programa.
+    '''
+
     linha = models.IntegerField()
     fk_teste = models.ForeignKey(TesteMesa, on_delete=models.CASCADE)
 
 
 class ValorParametro(models.Model):
+    '''Modelo do valor de parâmetros do programa.
+    '''
+
     parametro = models.CharField(max_length=240, db_index=True)
     valor = models.CharField(max_length=240, db_index=True, null=True)
     container = models.ForeignKey(
@@ -54,6 +75,9 @@ class ValorParametro(models.Model):
 
 
 class DadosTesteMesa(models.Model):
+    '''Modelo dos dados do teste de mesa.
+    '''
+
     add = models.DateTimeField('Adicionado', auto_now_add=True)
     linha = models.CharField('Linha', max_length=1000)
     variavel_p = models.CharField('Variável P', max_length=100)
