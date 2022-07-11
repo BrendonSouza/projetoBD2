@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.8",
+    "esprima": "^4.0.1",
     "express": "^4.18.1",
     "nodemon": "^2.0.18",
     "sqlite": "^4.1.1"
