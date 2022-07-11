@@ -62,9 +62,22 @@ Insira a url no seu browser
 http://127.0.0.1:8000/
 ```
 
+# Possíveis problemas
+
+Em alguns testes a aplicação gerou erros quando uma função era executada, como no exemplo abaixo:
+
+```
+def imprimir(texto):
+    print(texto)
+
+imprimir("Olá Mundo!")
+```
+
 ## Demonstração
 
 ![front page](https://github.com/WelvisSS/projetoBD2/blob/main/Demo/Home.png)
 ![front page](https://github.com/WelvisSS/projetoBD2/blob/main/Demo/Inserir%20programas.png)
 ![front page](https://github.com/WelvisSS/projetoBD2/blob/main/Demo/Lista%20de%20testes.png)
 ![front page](https://github.com/WelvisSS/projetoBD2/blob/main/Demo/Teste.png)
+
+
