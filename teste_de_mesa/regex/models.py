@@ -1,5 +1,5 @@
 from django.db import models
-
+# Aqui temos todas as models com os campos de cada tabela do banco de dados. 
 class Employee(models.Model):
     seu_codigo = models.CharField(max_length=1000)
 
