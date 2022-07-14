@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Teste de Mesa</title>
+
+    <link rel="stylesheet" href="{% static 'css/lists.css' %}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #274F65;">
+    <div class="container">
+        <div class="col-md-10 offset-md-1 mt-5 box">
+            <div class="container-result">
+                <div class="box-title">
+                    <h1 class="title-r"> Resultado</h1>
+                </div>
+                <hr class="my-4">
+
+                <div class="container-table">
+                    {% for dicionario in linhas %}
+                        {% if dicionario.teste_id == id %}
+                            <table class="table-t" type="text"">
+                                <tr>
+                                    <th>Linha</th>
+                                    <th>Parametro</th>
+                                    <th>Valor</th>
+                                </tr>
+                                {% for valor in valores %}
+                                    {% if valor.agrupamento_id == dicionario.id %}
+                                        <tr>
+                                            <td>{{dicionario.linha}}</td>
+                                            <td>{{valor.entrada}}</td>
+                                            <td>{{valor.valor}}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </table>
+                        {% endif %}
+                    {% endfor %}                    
+                </div>
+
+                <div class="container-buttom">
+                    <a href="{% url 'config' %}" style="color: white;">
+                        Novo Teste
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
