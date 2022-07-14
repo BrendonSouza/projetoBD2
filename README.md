@@ -15,14 +15,14 @@ Crie uma venv que é um ambiente virtual onde será instaldo todas as dependênc
 python -m venv env
 ```
 
-Inicie a venv
+Inicie a venv, ao iniciar o nome (env) aparecerá na linha de comando
 ```
 env\Scripts\activate
 ```
 
 ## Instalando dependências
 
-Instale as dependências do projeto
+Entrena pasta teste_de_mesa e instale as dependências do projeto
 ```
 pip install -r requirements.txt
 ```
@@ -61,6 +61,9 @@ Insira a url no seu browser
 ```
 http://127.0.0.1:8000/
 ```
+
+## Hospedagem da aplicação
+A aplicação não está hospedada, pois os locais de hospedagem do mysql geram cobranças, inviabilizando a hospedagem  
 
 # Possíveis problemas
 
