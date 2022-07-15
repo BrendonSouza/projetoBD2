@@ -1,9 +1,13 @@
 # projetoBD2
 
+# ATENÇÃO!!
+- É necessário criar um banco de dados com o nome "teste_de_mesa" e importar o arquivo teste_de_mesa(1).sql no phpmyadmin. Esse arquivo contém todas as procedures e estruturas utilizadas no projeto.
+- O diagrama de casos de uso foi desenvolvido por Fabiano e reutilizado por mim, nessa branch.
 ## Passos para executar o projeto:
 - 1- npm install
 - 2- Configurar o arquivo bd_connection.js com os dados da sua instância do mysql
 - 3- npm start para iniciar
+
 
 
 ### Problemas Encontrados
