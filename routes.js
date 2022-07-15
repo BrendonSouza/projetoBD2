@@ -72,7 +72,7 @@ router.post("/", (req, res) => {
     
   var merge
   const vectorFull = []
-  for(var i = 0; i < vectorO.length; i++){
+  for(var i = 0; i < vectorP.length; i++){
     merge = { ...vectorO[i], ...vectorP[i]}
     vectorFull.push(merge)
   }
