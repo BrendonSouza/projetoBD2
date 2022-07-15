@@ -1,124 +1,177 @@
 const router = require('express').Router()
 var token = require('esprima')
-//const conexao = require('./bd_connection');
+const conexao = require('./conexaoBD');
 
-router.get('/', (req, res) => {
-    res.send('Home')
-}) 
+router.get("/", (req, res) => {
+  res.send("Você está em casa");
+});
 
-router.post('/enterCode', (req, res) => {
-    const bodyData = req.body
-    //try {
-        const codeTokensO = token.tokenize(bodyData.codigoO,  { loc: true })
-        var linesO = bodyData.codigoO.split("\n").map((line) => line.trim())
+router.post("/enterCode", (req, res) => {
+  //criação dos tokens para cada programa
+  var tokensO = token.tokenize(req.body.programao, { loc: true })
+  var tokensP = token.tokenize(req.body.programap, { loc: true })
 
-        const codeTokensP = token.tokenize(bodyData.codigoSecundario, { loc: true })
-        var linesP = bodyData.codigoSecundario.split("\n").map((line) => line.trim())
-        
-        const vectorSend = [];
-        const vectorO = [];
-        const vectorP = [];
+  //define os vetores que serão preenchido com os valores de cada variavel de cada programa
+  const vectorSend = [];
+  const vectorO = [];
+  const vectorP = [];
+  
+  //separa cada linha do código fonte e adiciona no array de linhas
+  const linhasO = req.body.programao.split("\n").map((linha) => linha.trim());
+  const linhasP = req.body.programap.split("\n").map((linha) => linha.trim());
+  //query para chamadas das SP
+    const query = `CALL insere_programa_o('${req.body.programao}', '${req.body.apelido}')`;
+    const query2 = `CALL insere_programa_p('${req.body.programap}', '${req.body.apelido}')`;
+    const query3 = `CALL insere_teste_de_mesa('${req.body.apelido}')`;
 
-        const query = `CALL insere_programa_o('${bodyData.programao}')`;
-        const query2 = `CALL insere_programa_p('${bodyData.programap}')`;
-        conexao.query(query, (err, result) => {
-            if (err) throw err;
-            console.log(result);
-        });
-        conexao.query(query2, (err, result) => {
-            if (err) throw err;
-            console.log(result);
-        });
-        const query3 = `CALL insere_teste_de_mesa('teste 2')`;
-        conexao.query(query3, (err, result) => {
-            if (err) throw err;
-            console.log(result);
-        })
-        
-        
+    conexao.query(query, (err, result) => {
+        if (err) throw err;
+    });
+    conexao.query(query2, (err, result) => {
+        if (err) throw err;
+    });
+    conexao.query(query3, (err, result) => {
+        if (err) throw err;
+    })
+    //executa o código fonte preparado para o programa O.
+    try{
+      eval(preparaCodigoFonte(linhasO, tokensO,"_o"))
+    }
+    catch(err){
+      console.log(err)
+    }
+   
+    //aloca os valores de cada variavel no vetor de valores
+    vectorSend.forEach((element) => {
+      vectorO.push(element);
+    })
+    //zera o vetor auxiliar
+    vectorSend.splice(0, vectorSend.length)
     
-        (manipulateSourceCode(linesO, codeTokensO,"_o"))
-        //copy values from vectorSend to vectorO
-        vectorSend.forEach((element) => {
-            vectorO.push(element);
-            }
-        );
-        vectorSend.splice(0, vectorSend.length)
-        (manipulateSourceCode(linesP, codeTokensP, "_p"))
-    
-        vectorSend.forEach((element) => {
-            vectorP.push(element);
-            }
-        );
-        var merge
-        const vectorFull = []
-        for(var i = 0; i < vectorO.length; i++){
-            merge = { ...vectorO[i], ...vectorP[i]}
-            vectorFull.push(merge)
-        }
-        
-        vectorFull.forEach((element) => {
-            let queryMetricas = `CALL insere_metricas('${element.variavel_o}', '${element.valor_o}','${element.linha_o}', '${element.variavel_p}', '${element.valor_p}', '${element.linha_p}','${req.body.apelido}')`;
-            conexao.query(queryMetricas, (err, result) => {
-                if (err) throw err;
-                console.log(result);
-                }
-            );
-        })
-        
-        return res.status(200).json(codeTokensO)
+    //executa o código fonte preparado para o programa P.
+    eval(preparaCodigoFonte(linhasP, tokensP, "_p"))
 
-    //} catch (error) {
-    //     return res.status(400).json(error)
-    //}
-})
+    //aloca os valores de cada variavel no vetor de valores
+    vectorSend.forEach((element) => {
+      vectorP.push(element);
+    });
 
-function manipulateSourceCode(lines, tokens) {
     
-    const vectorSend = [];
-    var newCode 
-    //para cada atualização de variaveis, ou seja, quando o token for um =, ver qual foi o token anterior e se for um identificador mostra o valor da variavel atraves do eval
-    tokens.forEach((token) => {
+  var merge
+  const vectorFull = []
+  for(var i = 0; i < vectorO.length; i++){
+    merge = { ...vectorO[i], ...vectorP[i]}
+    vectorFull.push(merge)
+  }
+  
+   vectorFull.forEach((element) => {
+      let queryMetricas = `CALL insere_metricas('${element.variavel_o}', '${element.valor_o}','${element.linha_o}', '${element.variavel_p}', '${element.valor_p}', '${element.linha_p}','${req.body.apelido}')`;
+      conexao.query(queryMetricas, (err, result) => {
         
-        if(token.value == "function"){
-           var params = lines[token.loc.start.line-1].split("(")[1].split(")")[0].split(",") 
-            params.forEach((param)=>{
-                lines[token.loc.start.line-1] += ` \n vectorSend.push({variavel: '${param}', valor: ${param}})` 
-            })   
-        }
-        if (token.type == "Punctuator") {
-            if (token.value == "=") {
-                var previous = tokens[tokens.indexOf(token) - 1]
-                if(previous.value == "]"){
-                    for(let i = 1; i < 5; i++){
-                        if(tokens[tokens.indexOf(token)-i-1].value=="["){
-                            previous = tokens[tokens.indexOf(token)-i-2]
-                            break
-                        }
-                    }
-                }
-                if (previous.type == "Identifier") {
-                    lines[token.loc.start.line - 1] += `\n
-                    if(Array.isArray(${previous.value})){
-                        for(var i = 0; i < ${previous.value}.length; i++){
-                            vectorSend.push({variavel: '${previous.value}'+[i], valor: ${previous.value}[i]})
-                        }
-                    }
-                    else{
-                        vectorSend.push({
-                            variavel: '${previous.value}', 
-                            valor: ${previous.value}, 
-                            linha: '${lines[token.loc.start.line - 1] }'
-                           })
-                    }
-                     `
-                    newCode = lines.join("\n")
-                }
-            }
-        }
+        if (err){
+          console.log("erro capturado ao salvar métricas:"+ err)
+        };
+       
+      }
+      );
+    })
+
+  try {
+    let query7 = `SELECT * from tbl_metricas where tbl_metricas.id_teste_de_mesa = (SELECT id FROM tbl_programa_o po where po.nome_teste_de_mesa = '${req.body.apelido}')`;
+
+    conexao.query(query7, (err, result) => {
+          if (err){
+            console.log("erro capturado pegar os dados do banco:"+ err)
+          };
+          return res.status(200).json(result)
     })
     
-    return newCode
+  } catch (error) {
+    console.log(error)
+  }
+  
+});
+
+// router.get('/visualizar/:apelido', (req, res) => {
+//   try {
+//     let query7 = `SELECT * from tbl_metricas where tbl_metricas.id_teste_de_mesa = (SELECT id FROM tbl_programa_o po where po.nome_teste_de_mesa = '${req.params.apelido}')`;
+
+//     conexao.query(query7, (err, result) => {
+//           if (err){
+//             console.log("erro capturado pegar os dados do banco:"+ err)
+//           };
+//           return res.status(200).json(result)
+//     })
+    
+//   } catch (error) {
+//     console.log(error)
+//   }
+
+
+// });
+
+
+
+
+function preparaCodigoFonte(linhas, tokens,programa) {
+  var newCodigoFonte 
+   
+  //para cada atualização de variaveis, ou seja, 
+  //quando o token for um =, ver qual foi o token anterior e se for um identificador mostra o valor da variavel atraves do eval
+  tokens.forEach((token) => {
+      //Verifica se há uma definição de função
+      if(token.value == "function"){
+        //se houver, separa os parâmetros, pula uma linha e coloca no vetor os valores dos parametros
+         var parametros = linhas[token.loc.start.line-1].split("(")[1].split(")")[0].split(",") 
+          parametros.forEach((parametro)=>{
+              linhas[token.loc.start.line-1] += ` \n vectorSend.push({variavel${programa}: '${parametro}', valor${programa}: ${parametro}, linha${programa}:'${linhas[token.loc.start.line - 1] }'} )` 
+          })   
+      }
+      //se houver uma atribuição de variavel, verifica se o token anterior é um identificador
+      if (token.type == "Punctuator") {
+          if (token.value == "=") {
+              var anterior = tokens[tokens.indexOf(token) - 1]
+              if(anterior.value == "]"){
+                /*é necessário essa verificação e esse for para tratar
+                  o caso de uma atribuição de um array.
+                  Ex: arr[1+variavel] = 0
+                  Ocorre um erro no token anterior ao =, pois o token anterior ao = é um ]. Por isso um laço foi necessário
+                */
+              
+                  for(let i = 1; i < tokens.indexOf(token)-1; i++){
+                      if(tokens[tokens.indexOf(token)-i-1].value=="["){
+                          anterior = tokens[tokens.indexOf(token)-i-2]
+                          break
+                      }
+                  }
+              }
+              /* Após isso, verificamos se encontramos um identificador, ou seja, uma variável */
+              if (anterior.type == "Identifier") {
+                  //se encontramos, e a variavel é um array, adicionamos o valor de cada posição no vetor que será enviado para o BD
+                  //se não, adicionamos o valor da variável no vetor que será enviado para o BD
+                  linhas[token.loc.start.line - 1] += `\n
+                  if(Array.isArray(${anterior.value})){
+                      for(var i = 0; i < ${anterior.value}.length; i++){
+                          vectorSend.push({variavel${programa}: '${anterior.value}'+[i], valor${programa}: ${anterior.value}[i], linha${programa}:'${linhas[token.loc.start.line - 1] }' })
+                      }
+                  }
+                  else{
+                    vectorSend.push({
+                          variavel${programa}: '${anterior.value}', 
+                          valor${programa}: ${anterior.value}, 
+                          linha${programa}: '${linhas[token.loc.start.line - 1] }'
+                         })
+                  }
+                   `
+                   //adiciona as alterações no codigo fonte a variavel
+                  newCodigoFonte = linhas.join("\n")
+              }
+          }
+      }
+  })
+  
+  //retorna o codigo fonte com as alterações
+  return newCodigoFonte
 }
 
 module.exports = router
