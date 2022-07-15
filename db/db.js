@@ -1,3 +1,4 @@
+// Configura a conexão no bd
 var mysql = require("mysql");
 
 var conexao = mysql.createConnection({
