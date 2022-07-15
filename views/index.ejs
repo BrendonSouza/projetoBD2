@@ -2,65 +2,38 @@
 <html lang="en">
     <%- include("./header.ejs"); %>
 <body>
-    <div class="container mt-5" id="enviarProgramas">
+    <div class="container mt-5 ps-4 pe-4" id="enviarProgramas">
         <h1 class="mt-3">Inserir</h1>
-        <form action="/#visualizar" method="post">
+        <form action="/" method="post">
             <div class="row">
-                <label for="exampleFormControlTextarea1" class="form-label">Nome do teste de mesa</label>
-                <input class="form-control" type="text" id="apelido" name="apelido" ></input>
+                <div class="col-6 mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Nome do teste de mesa:</label>
+                    <input class="form-control" type="text" id="apelido" name="apelido" ></input>
+                </div>
+                <!-- line divider -->
+                <div>
+                    <hr class="mt-3" style="border-top:2px solid;">
+
+                </div>
             </div>
             <div class="row">
                 <div class="programaoControl col-6">
                     <label for="exampleFormControlTextarea1" class="form-label">Programa O (projetado)</label>
-                    <textarea class="form-control" id="programao" name="programao" rows="30"></textarea>
+                    <textarea class="form-control" id="programao" name="programao" rows="15"></textarea>
                 </div>
                 <div class="programapControl col-6">
                     <label for="exampleFormControlTextarea1" class="form-label">Programa P (implementado)</label>
-                    <textarea class="form-control" id="programap" name="programap" rows="30"></textarea>
+                    <textarea class="form-control" id="programap" name="programap" rows="15"></textarea>
                 </div>
             </div>
             <div class="row mt-3 flex-row-reverse">
-                <div class="col-1">
+                <div class="col-1 mb-5">
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
     
             </div>
         </form>
     </div>
-    <div class="container mt-5" id="visualizar">
-        <div class="row">
-            <h1>Visualizar</h1>
-            <div class="col-12">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Num. Linha</th>
-                            <th scope="col">Variável Original</th>
-                            <th scope="col">Valor Hexa O</th>
-                            <th scope="col">Variável P</th>
-                            <th scope="col">Valor Hexa P</th>
-                            <th scope="col">Linha</th>
-
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>1</td>
-                                <td>Lorem</td>
-                                <td>Lorem</td>
-                                <td>Lorem</td>
-                                <td>Lorem</td>
-                                <td>Lorem</td>
-                            </tr>
-                       
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+  
 </body>
 </html>

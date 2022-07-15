@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./header.ejs"); %>
+  <body>
+      <div class="container mt-5 mb-5" id="visualizar">
+        <form class="d-flex mb-3 justify-content-center" role="search" action="/visualizar/" method="get">
+            
+                <div class="col-6 d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar por apelido do teste de mesa" aria-label="Search" id="apelido" name="apelido">
+                    <button style="margin-left: -50px;" class="btn btn-outline-success d-flex" type="submit">
+                        <i class="fas fa-search"></i>
+                        </button>
+                </div>
+            
+
+        </form>
+
+        <div class="row">
+            <h1>Visualizar</h1>
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Variável Original</th>
+                            <th scope="col">Valor O</th>
+                            <th scope="col">Linha O</th>
+                            <th scope="col">Variável P</th>
+                            <th scope="col">Valor P</th>
+                            <th scope="col">Linha P</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% if(metricas.length != 0){%>
+                                <% metricas.forEach(function(metrica){ %>
+                                    <tr>
+                                        <td><%= metrica.id %></td>
+                                        <td><%= metrica.variavel_o %></td>
+                                        <td><%= metrica.valor_hexa_o %></td>
+                                        <td><%= metrica.linha_o %></td>
+                                        <td><%= metrica.variavel_p %></td>
+                                        <td><%= metrica.valor_hexa_p %></td>
+                                        <td><%= metrica.linha_p %></td>
+                                    </tr>
+                                <% }); %>
+
+                            <%} else {%>
+                            <tr>
+                                <td class="text-center" colspan="7">Nenhum registro encontrado. Pesquise pelo apelido!</td>
+                            </tr>
+                            <%}%>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
